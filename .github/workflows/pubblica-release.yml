@@ -1,0 +1,37 @@
+name: Pubblica release DucatONE
+# Si attiva quando viene caricato il ramo "publish" con i file in release/:
+#   release/info.json  -> { "version": "2.1.1", "notes": "..." }
+#   release/*.partNN   -> parti dei programmi di installazione
+on:
+  push:
+    branches: [publish]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: publish
+      - name: Ricompone i file e crea la release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          cd release
+          V=$(jq -r .version info.json)
+          jq -r .notes info.json > notes.md
+          for base in $(ls *.part00 | sed 's/\.part00$//'); do
+            cat "$base".part* > "$base"
+            rm "$base".part*
+          done
+          U=$(ls DucatONE-Update-*.exe)
+          echo "" >> notes.md
+          echo "sha256: $(sha256sum "$U" | cut -d' ' -f1)" >> notes.md
+          gh release create "v$V" --repo "$GITHUB_REPOSITORY" --title "DucatONE $V" --notes-file notes.md --target main *.exe
+      - name: Elimina il ramo temporaneo
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X DELETE "repos/$GITHUB_REPOSITORY/git/refs/heads/publish" || true
