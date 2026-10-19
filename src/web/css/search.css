@@ -1,0 +1,28 @@
+table {
+	font-size: 7.5pt;
+	font-family:verdana;
+	font-color:blue;
+	border-style:none;
+     }
+td{
+	font-size: 7.5pt;
+	font-family:verdana;
+	font-color:blue;
+	border-style:none;
+     }
+a {
+	font-size:7.5pt;
+	font-family:verdana;
+	font-color:gray;
+	text-decoration:none;
+     }
+
+body {
+	background-color:rgb(255,255,255);
+	}
+span {
+	font-weight:bold;
+	}
+table.tableresults {
+	overflow:scroll
+	}

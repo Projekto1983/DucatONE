@@ -1,0 +1,35 @@
+td.body_table{
+								border-color:rgb(206,0,0);	
+								border-style:solid;
+								border-width:1px;
+								padding-left:3px;
+								padding-right:3px;
+								padding-bottom:3px;
+								padding-top:3px;
+								width:1%;
+								text-align:left;
+							}
+td.header_table{
+								width:1%;
+								text-align:center;
+								border-color:rgb(206,0,0);		
+								background-color:rgb(194,189,189);
+								border-style:solid;
+								border-width:1px;
+								padding-left:3px;
+								padding-right:3px;
+								padding-bottom:3px;
+								padding-top:3px;
+							}
+
+.snalfa {
+
+}
+
+.snfiat {
+	display:none;
+}
+
+.snlancia {
+	display:none;
+}

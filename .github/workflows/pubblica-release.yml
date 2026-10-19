@@ -1,7 +1,8 @@
 name: Pubblica release DucatONE
 # Si attiva quando viene caricato il ramo "publish" con i file in release/:
 #   release/info.json  -> { "version": "2.1.1", "notes": "..." }
-#   release/*.partNN   -> parti dei programmi di installazione
+#   release/*.partNN   -> parti dei file (exe, AppImage, zip, pak)
+# Se la release esiste già, i file vengono aggiunti a quella.
 on:
   push:
     branches: [publish]
@@ -26,10 +27,22 @@ jobs:
             cat "$base".part* > "$base"
             rm "$base".part*
           done
-          U=$(ls DucatONE-Update-*.exe)
-          echo "" >> notes.md
-          echo "sha256: $(sha256sum "$U" | cut -d' ' -f1)" >> notes.md
-          gh release create "v$V" --repo "$GITHUB_REPOSITORY" --title "DucatONE $V" --notes-file notes.md --target main *.exe
+          U=$(ls DucatONE-Update-*.exe 2>/dev/null | head -1 || true)
+          L=$(ls DucatONE-Update-*.AppImage 2>/dev/null | head -1 || true)
+          FILES=$(ls *.exe *.AppImage *.zip *.pak 2>/dev/null || true)
+          if gh release view "v$V" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            # release esistente: aggiunge i file e le righe sha256 mancanti
+            gh release view "v$V" --repo "$GITHUB_REPOSITORY" --json body -q .body > old.md
+            [ -n "$U" ] && { grep -v '^sha256:' old.md > t.md; mv t.md old.md; echo "sha256: $(sha256sum "$U" | cut -d' ' -f1)" >> old.md; }
+            [ -n "$L" ] && { grep -v '^sha256-linux:' old.md > t.md; mv t.md old.md; echo "sha256-linux: $(sha256sum "$L" | cut -d' ' -f1)" >> old.md; }
+            gh release edit "v$V" --repo "$GITHUB_REPOSITORY" --notes-file old.md
+            gh release upload "v$V" --repo "$GITHUB_REPOSITORY" --clobber $FILES
+          else
+            echo "" >> notes.md
+            [ -n "$U" ] && echo "sha256: $(sha256sum "$U" | cut -d' ' -f1)" >> notes.md
+            [ -n "$L" ] && echo "sha256-linux: $(sha256sum "$L" | cut -d' ' -f1)" >> notes.md
+            gh release create "v$V" --repo "$GITHUB_REPOSITORY" --title "DucatONE $V" --notes-file notes.md --target main $FILES
+          fi
       - name: Elimina il ramo temporaneo
         if: always()
         env:

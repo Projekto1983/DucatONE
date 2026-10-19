@@ -1,0 +1,26 @@
+'use strict';
+// Novità mostrate nella home (sezione News), dalla più recente
+module.exports = [
+  { v: '3.1.0', d: '19/10/2026', t: 'Kit aria condizionata Delphi Diavia: 15 manuali di montaggio e manutenzione per Ducato 244 e X250 (compressore, impianti completi con comando Denso o Diavia), con elenco per motore, codice kit, carica di R134a, prescrizioni per l\'installatore, ricerca e PDF scaricabili.' },
+  { v: '3.0.0', d: '19/10/2026', t: 'Libretti di uso e manutenzione Fiat del Ducato 244 e del Nuovo Ducato X250 (edizioni 2009 e 2012): consultabili nel programma con argomenti principali e ricerca, scaricabili in PDF. La ricerca del manuale trova anche le pagine del libretto; nuove schede rapide dal libretto (spie, lampade, fusibili, pressioni, emergenza, traino, controlli); rimandi al libretto dalle pagine d\'officina; controlli periodici consigliati nel Libretto veicoli.' },
+  { v: '2.9.0', d: '19/10/2026', t: 'Nuovo modello: Nuovo Ducato X250 (2.2, 2.3 e 3.0 JTD) con il manuale eLearn completo in 11 lingue, come il 244: dati tecnici, descrizioni, diagnosi, Diagnosi Examiner, prove, procedure e schemi elettrici, con ricerca, preferiti, note, foto, schede rapide e libretto con il piano di manutenzione X250.' },
+  { v: '2.8.0', d: '16/10/2026', t: 'Ducato 1986: aggiunto il manuale di riparazione tedesco (338 pagine) con la traduzione italiana di ogni pagina sotto la scansione, indice per capitoli, rimandi cliccabili, piano di manutenzione e 40 schemi elettrici, il tutto incluso nella ricerca. Il pacchetto del 1986 si aggiorna con un clic.' },
+  { v: '2.7.0', d: '16/10/2026', t: 'Ducato 1986: pagine più nitide, indici delle sezioni cliccabili, rimandi «vedi pag.» cliccabili, segnalibri colorati delle sezioni, schede rapide, attrezzatura specifica, ricerca unica 244 + 1986, ricambi e video filtrati per mezzo (colonna «Mezzo» nei fogli), libretto anche per il 1986 con scadenze personalizzate.' },
+  { v: '2.6.1', d: '16/10/2026', t: 'Nuova immagine del Ducato 1986 nella pagina iniziale.' },
+  { v: '2.6.0', d: '16/10/2026', t: 'Nuovo veicolo: Ducato gamma 1986 (prima serie, 290) con il manuale Fiat originale a colori, sezioni e capitoli navigabili, filtro per motorizzazione, ricerca nel testo delle pagine, preferiti, note e foto.' },
+  { v: '2.5.1', d: '16/10/2026', t: 'La finestra di aggiornamento compare subito all\'avvio, sempre in primo piano. Schemi: la rotella scorre la pagina (Ctrl + rotella per lo zoom), clic su un punto vuoto per aprirli ingranditi.' },
+  { v: '2.5.0', d: '16/10/2026', t: 'Interfaccia tradotta nelle 11 lingue del manuale (guida, novità e glossario in inglese per le lingue straniere). Nuova versione portatile da chiavetta USB, senza installazione.' },
+  { v: '2.4.0', d: '16/10/2026', t: 'Schemi elettrici: clic su un filo per evidenziarne tutto il percorso e ricerca nella tabella dei componenti. Ricerca: nuova opzione «solo legende foto e componenti».' },
+  { v: '2.3.0', d: '16/10/2026', t: 'Libretto dei veicoli con interventi e spese, più veicoli, scadenze di manutenzione calcolate dal piano del manuale con avviso in home, foto personali sulle pagine, PDF di un capitolo intero con indice, avviso di nuovi ricambi e video, controllo automatico dei dati del manuale.' },
+  { v: '2.2.0', d: '16/10/2026', t: 'Schede rapide, checklist dei passaggi, scheda lavoro stampabile, presentazione a tutto schermo, pagine affiancate, attrezzatura specifica e ricambi/video collegati alle procedure, ricerca tollerante con sinonimi, Strumenti (convertitori, glossario, colori cavi, backup), cronometro, preferiti nei Ricambi, segnalazione errori, pagine recenti in home, avvio più rapido.' },
+  { v: '2.1.9', d: '16/10/2026', t: 'Il programma riapre la finestra con le dimensioni che avevi lasciato e parte sempre dalla home. Nuova sezione News con la cronologia delle novità.' },
+  { v: '2.1.8', d: '16/10/2026', t: 'Ricambi online: anteprime dei prodotti Amazon più affidabili.' },
+  { v: '2.1.7', d: '15/10/2026', t: 'La finestra di aggiornamento compare al centro del programma e resta in primo piano.' },
+  { v: '2.1.6', d: '15/10/2026', t: 'Ricambi online: foto di anteprima presa automaticamente dall\'inserzione.' },
+  { v: '2.1.5', d: '15/10/2026', t: 'Menu a sinistra: un secondo clic su sezione o categoria chiude l\'albero.' },
+  { v: '2.1.4', d: '15/10/2026', t: 'Ricambi e Video guide letti anche da file Excel su Google Drive.' },
+  { v: '2.1.3', d: '15/10/2026', t: 'Schede Ricambi e Video più compatte; statistiche anonime d\'uso (disattivabili).' },
+  { v: '2.1.2', d: '15/10/2026', t: 'Nuova sezione Video guide. Link Stacco/Riattacco: avviso e cambio motorizzazione.' },
+  { v: '2.1.1', d: '15/10/2026', t: 'Aggiornamenti automatici, schede multiple, note personali, cronologia, albero di navigazione, modalità officina e notte, Ricambi online.' },
+  { v: '2.0', d: '', t: 'Nasce DucatONE: nuova grafica, ricerca con risultati per categoria, stampa e PDF, foto e schemi con zoom.' },
+];

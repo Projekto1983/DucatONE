@@ -1,0 +1,5 @@
+{"extends":null,"appId":"it.ducatone.app","productName":"DucatONE","executableName":"ducatone",
+ "files":["**/*","!build_icon.ico"],"asar":true,
+ "extraResources":[{"from":"../data","to":"data"}],
+ "linux":{"target":["AppImage"],"icon":"build_icon.png","category":"Education","synopsis":"Manuale officina Fiat Ducato","artifactName":"DucatONE-${version}-x86_64.${ext}"},
+ "directories":{"output":"dist"},"publish":null}

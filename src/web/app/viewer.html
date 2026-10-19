@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>DucatONE - Immagine</title>
+<style>
+html,body{margin:0;height:100%;background:#2b2f36;font:12px Verdana,Tahoma,sans-serif;overflow:hidden}
+.tb{position:fixed;top:0;left:0;right:0;height:40px;background:#004594;border-bottom:3px solid #fb6705;display:flex;align-items:center;gap:6px;padding:0 10px;z-index:2;color:#fff}
+.tb button{background:#fff;color:#004594;border:0;border-radius:3px;min-width:34px;height:26px;font:bold 13px Verdana;cursor:pointer;padding:0 10px}
+.tb button:hover{background:#fb6705;color:#fff}
+.tb .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-left:10px;font-weight:bold}
+.tb .z{min-width:52px;text-align:center}
+#st{position:absolute;top:43px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
+#st.drag{cursor:grabbing}
+#im{position:absolute;left:0;top:0;transform-origin:0 0;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.5);image-rendering:auto;user-select:none;-webkit-user-drag:none}
+.pr{display:none}
+@media print{
+  @page{margin:10mm}
+  html,body{background:#fff;height:auto;overflow:visible}
+  .tb,#st{display:none}
+  .pr{display:block;text-align:center;font:10pt Verdana}
+  .pr img{max-width:100%;max-height:250mm}
+}
+</style><script src="i18n.js"></script></head><body>
+<div class="tb">
+  <button id="zo" title="Riduci">−</button><span class="z" id="zl">100%</span><button id="zi" title="Ingrandisci">+</button>
+  <button id="fit" title="Adatta alla finestra">Adatta</button><button id="one" title="Dimensione reale">1:1</button>
+  <button id="rot" title="Ruota">⟳</button>
+  <span class="t" id="tt"></span>
+  <button id="pr" title="Stampa solo l'immagine">🖶 Stampa</button><button id="pdf" title="Salva l'immagine in PDF">PDF</button>
+</div>
+<div id="st"><img id="im" draggable="false"></div>
+<div class="pr"><div id="pt" style="margin-bottom:6mm;font-weight:bold"></div><img id="pi"></div>
+<script>
+const q=new URLSearchParams(location.search), src=q.get('src'), title=q.get('t')||'';
+const im=document.getElementById('im'), st=document.getElementById('st'), zl=document.getElementById('zl');
+document.getElementById('tt').textContent=title; document.getElementById('pt').textContent=title;
+if(title) document.title='DucatONE - '+title;
+im.src=src; document.getElementById('pi').src=src;
+let s=1,x=0,y=0,rot=0;
+function apply(){im.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${rot}deg)`;zl.textContent=Math.round(s*100)+'%';
+  im.style.transformOrigin = rot? 'center center':'0 0';}
+function fit(){const W=st.clientWidth-40,H=st.clientHeight-40,w=im.naturalWidth,h=im.naturalHeight; if(!w)return;
+  s=Math.min(W/w,H/h); x=(st.clientWidth-w*s)/2; y=(st.clientHeight-h*s)/2; rot=0; apply();}
+function zoomAt(f,cx,cy){const ns=Math.max(.1,Math.min(12,s*f)); x=cx-(cx-x)*ns/s; y=cy-(cy-y)*ns/s; s=ns; apply();}
+im.onload=fit; addEventListener('resize',fit);
+st.addEventListener('wheel',e=>{e.preventDefault();const r=st.getBoundingClientRect();zoomAt(e.deltaY<0?1.15:1/1.15,e.clientX-r.left,e.clientY-r.top);},{passive:false});
+let d=null; st.addEventListener('mousedown',e=>{d={x:e.clientX-x,y:e.clientY-y};st.classList.add('drag');});
+addEventListener('mousemove',e=>{if(d){x=e.clientX-d.x;y=e.clientY-d.y;apply();}});
+addEventListener('mouseup',()=>{d=null;st.classList.remove('drag');});
+st.addEventListener('dblclick',fit);
+const c=()=>[st.clientWidth/2,st.clientHeight/2];
+document.getElementById('zi').onclick=()=>zoomAt(1.25,...c());
+document.getElementById('zo').onclick=()=>zoomAt(1/1.25,...c());
+document.getElementById('fit').onclick=fit;
+document.getElementById('one').onclick=()=>{s=1;x=(st.clientWidth-im.naturalWidth)/2;y=(st.clientHeight-im.naturalHeight)/2;apply();};
+document.getElementById('rot').onclick=()=>{rot=(rot+90)%360;document.getElementById('pi').style.transform='rotate('+rot+'deg)';apply();};
+document.getElementById('pr').onclick=()=>window.print();
+document.getElementById('pdf').onclick=()=>window.elearnApp&&elearnApp.exportPdf(location.href);
+addEventListener('keydown',e=>{if(e.key==='Escape')window.close();if(e.key==='+')zoomAt(1.25,...c());if(e.key==='-')zoomAt(.8,...c());});
+</script></body></html>

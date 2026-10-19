@@ -1,0 +1,143 @@
+
+a.nav {
+				text-decoration: none;
+				font-family: verdana;
+				font-size: 10pt;
+				text-transform: uppercase;
+				color: blue;
+				font-weight: bold;
+				margin-left:5;
+			}
+
+
+
+a.path {
+				text-decoration: none;
+				font-family: verdana;
+				font-size: 6.5pt;
+				color: white;
+			}
+a.cartype {
+				text-decoration: none;
+				font-family: verdana;
+				font-size: 8pt;
+				text-transform: uppercase;
+				color: white;
+				font-weight: bold;
+				margin-left:5;
+			}
+
+
+
+select.cartype {
+						font-family: verdana;
+						font-size: 7pt;
+						margin-left:4;
+						width:136;
+						background-color: #FFFFFF;
+						elevation: 3;
+					}
+
+a.menulateraleLabel{
+							text-decoration: none;
+							font-family: verdana;
+							font-size: 7.5pt;
+							color: white;
+							font-weight: bold;
+							margin-left:4;
+							margin-top:3;
+							height:12;
+							cursor:default ;
+						}
+						
+a.menulateraleLabel{
+							text-decoration: none;
+							font-family: verdana;
+							font-size: 7.5pt;
+							color: white;
+							font-weight: bold;
+							margin-left:4;
+							margin-top:3;
+							height:12;
+							cursor:default;
+						}						
+
+
+
+a.menulateraleIIliv{
+							text-decoration: none;
+							font-family: verdana;
+							font-size: 7.5pt;
+							color: white;
+							margin-left:10;
+							margin-top:1;
+							padding-top:1;
+							height:14;
+						}
+
+a.topbar{
+							text-decoration: none;
+							font-family: verdana;
+							font-weight:bold;
+							font-size:7.5pt;
+							color: white;
+							margin-right:4;
+							margin-left:4;
+						}
+
+
+img.separatore {
+							margin-left:4;
+							margin-right:4;
+							margin-bottom:0;
+						}
+
+td.colorescuro	{
+							background-color:#004594;
+							rbackground-color:rgb(206,0,0);
+						}
+
+td.colorechiaro	{
+
+							background-color:#5d9ad1;
+							rbackground-color:rgb(194,189,189);
+						}
+
+td.toptd			    {
+							background-image:url(../images/topfiat.jpg);
+							rbackground-image:url(./images/topalfa.jpg);
+							padding-right:6;
+							padding-top:44;
+						}
+
+span.separatorespan {
+							width:6;
+							height:7;
+							font-size:2;
+							margin-left:4;
+							margin-right:4;
+							background-image:url(../images/separatorefiat.jpg);
+						}
+span.topbar		{
+							text-decoration: none;
+							font-family: verdana;
+							font-size:8pt;
+							color: white;
+							margin-right:0;
+							margin-left:0;
+						}
+a:hover             {
+							color:#FF0000;
+						}
+
+
+a.menulateraleIlivSel 
+					{
+						color:rgb(40,40,40)
+				    }
+				    
+				    
+a.menulateraleIIlivSel 
+					{
+						color:rgb(40,40,40)
+				    }				    

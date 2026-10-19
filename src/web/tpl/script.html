@@ -1,0 +1,39 @@
+		<SCRIPT language="javascript">
+		<!--
+			// script per la stampa del frame interno
+			function printFrame (frame) {
+				if (frame.print) {
+					frame.focus();
+					frame.print();
+				}
+			}
+
+			function openWindow(pageName) {
+				winSearch = window.open("", 'WinSearch', 'scrollbars=yes, width=484 , height=462, scrollbars=no');
+				if(winSearch.location=="about:blank") winSearch.location=pageName;		
+				winSearch.focus();
+				window.name = "WinMain";
+			}
+
+			function openWinZoom(pageName) {
+				// Apri a tutto schermo
+				winZoom = open(pageName, 'WinZoom', 'scrollbars=yes');
+				winZoom.moveTo(0,0); 
+				winZoom.resizeTo(screen.availWidth,screen.availHeight);
+				winZoom.focus();
+				name = "WinMain";
+			}
+
+			function openWinPrint(pageName) {
+				winPrint=window.open(pageName, 'WinPrint');
+				winPrint.focus();
+				window.name = "WinMain";			}
+			function __doPostBack(eventTarget, eventArgument) {
+				var theform = document.form1;
+				theform.__EVENTTARGET.value = eventTarget;
+				theform.__EVENTARGUMENT.value = eventArgument;
+				theform.submit();
+			}
+		// -->
+		
+		</SCRIPT>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>DucatONE - Installazione dati</title>
+<style>
+body{margin:0;font-family:Verdana,sans-serif;font-size:9pt;background:#fff}
+.top{height:66px;background:#004594;position:relative}
+.top .logo{position:absolute;left:0;top:0;width:162px;height:66px;background:url(logo@2x.jpg) 0 0/162px 66px}
+.stripe{height:6px;background:#fb6705}
+.wrap{max-width:640px;margin:28px auto;padding:0 16px}
+h1{font-size:11pt;color:#004594;text-transform:uppercase;margin:0 0 12px}
+p{line-height:1.5}
+.src{border:1px solid #c9d3e3;background:#f6f8fc;padding:8px 10px;margin:6px 0;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.src b{color:#004594}
+button{font:bold 8pt Verdana;background:#004594;color:#fff;border:0;padding:6px 12px;cursor:pointer}
+button.alt{background:#e0e0e0;color:#000}
+button:disabled{opacity:.5;cursor:default}
+.bar{height:16px;border:1px solid #004594;margin-top:14px;display:none}
+.bar div{height:100%;width:0;background:rgb(251,103,5)}
+#msg{margin-top:8px;color:#004594}
+.err{color:#c00!important}
+</style><script src="i18n.js"></script></head><body>
+<div class="top"><div class="logo"></div></div><div class="stripe"></div>
+<div class="wrap">
+<h1>Primo avvio: installazione dei dati</h1>
+<p>Per funzionare senza CD, DucatONE deve copiare sul PC i manuali (cartelle <b>database</b>, <b>Image</b>, <b>system</b>). Inserisci il CD originale oppure indica la cartella che ne contiene una copia.</p>
+<div id="found"></div>
+<p><button class="alt" id="pick">Scegli cartella…</button></p>
+<div class="bar" id="bar"><div></div></div>
+<div id="msg"></div>
+</div>
+<script>
+const found=document.getElementById('found'),msg=document.getElementById('msg'),bar=document.getElementById('bar');
+function row(p){
+  const d=document.createElement('div');d.className='src';
+  d.innerHTML='<span>Origine: <b></b> <small></small></span><span><button class="go">Copia sul PC</button> <button class="alt use">Usa da qui</button></span>';
+  d.querySelector('b').textContent=p.path; d.querySelector('small').textContent='('+p.langs+' lingue)';
+  d.querySelector('.go').onclick=()=>start(p.path,true);
+  d.querySelector('.use').onclick=()=>start(p.path,false);
+  found.appendChild(d);
+}
+async function scan(){found.innerHTML='';const l=await elearnApp.scanSources();l.forEach(row);if(!l.length)msg.textContent='Nessun CD eLearn trovato: inserisci il CD oppure scegli la cartella.';else msg.textContent='';}
+document.getElementById('pick').onclick=async()=>{const p=await elearnApp.pickSource();if(p&&p.error){msg.textContent=p.error;msg.className='err';}else if(p){msg.className='';found.innerHTML='';row(p);}};
+async function start(src,copy){
+  document.querySelectorAll('button').forEach(b=>b.disabled=true);msg.className='';
+  if(copy){bar.style.display='block';msg.textContent='Copia in corso…';}
+  elearnApp.onProgress(p=>{bar.firstChild.style.width=(p.done/p.total*100).toFixed(1)+'%';msg.textContent='Copia in corso… '+p.done+' / '+p.total+' file';});
+  const r=await elearnApp.importData(src,copy);
+  if(r&&r.error){msg.textContent=r.error;msg.className='err';document.querySelectorAll('button').forEach(b=>b.disabled=false);}
+}
+scan(); setInterval(()=>{if(!document.querySelector('button:disabled'))scan();},5000);
+</script></body></html>

@@ -1,0 +1,117 @@
+A.path {
+	FONT-SIZE: 7.5pt;  COLOR: white; FONT-FAMILY: verdana; TEXT-DECORATION: none;
+
+}
+
+A.cartype {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; MARGIN-LEFT: 5px; TEXT-TRANSFORM: uppercase; COLOR: white; FONT-FAMILY: verdana; TEXT-DECORATION: none
+}
+SELECT.cartype {
+	FONT-SIZE: 7pt; MARGIN-LEFT: 4px; WIDTH: 136px; FONT-FAMILY: verdana; BACKGROUND-COLOR: #ffffff; elevation: 3
+}
+A.menulateraleIliv {
+	BORDER-TOP: #0056a5 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 7pt; PADDING-BOTTOM: 2px; WIDTH: 144px; COLOR: white; PADDING-TOP: 2px; BORDER-BOTTOM: #003472 1px solid; FONT-FAMILY: verdana; HEIGHT: 12px; BACKGROUND-COLOR: #004594; BORDER-RIGHT-WIDTH: 1px; TEXT-DECORATION: none
+}
+A.menulateraleIlivSel {
+	BORDER-TOP: #0056a5 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 7pt; PADDING-BOTTOM: 2px; WIDTH: 144px; COLOR: white; PADDING-TOP: 2px; BORDER-BOTTOM: #003472 1px solid; FONT-FAMILY: verdana; HEIGHT: 12px; BACKGROUND-COLOR: #5d9ad1; BORDER-RIGHT-WIDTH: 1px; TEXT-DECORATION: none
+}
+A.menulateraleIliv:hover {
+	COLOR: white; BACKGROUND-COLOR: #1156aa
+}
+A.menulateraleIlivSel:hover {
+	COLOR: white
+}
+A.topbar {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; MARGIN-LEFT: 4px; COLOR: white; MARGIN-RIGHT: 4px; FONT-FAMILY: verdana; TEXT-DECORATION: none
+	line-height: 10px;
+}
+
+A.registrationtopbar {
+	FONT-WEIGHT: bold; FONT-SIZE: 7.5pt; MARGIN-LEFT: 4px; COLOR: red; MARGIN-RIGHT: 4px; FONT-FAMILY: verdana; TEXT-DECORATION: none
+	line-height: 10px;
+}
+
+
+
+IMG.separatore {
+	MARGIN-BOTTOM: 0px; MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+TD.colorescuro {
+background-color: rgb(254,153,1)
+}
+TD.colorechiaro {
+	BACKGROUND-COLOR: rgb(254,153,1) ; xrgb(195,189,189); rbackground-color: rgb(194,189,189)
+}
+TD.colorechiaro2 {
+	BACKGROUND-COLOR: rgb(0,0,128) ; xrgb(195,189,189); rbackground-color: rgb(194,189,189)
+}
+
+TD.centrologin {
+	BACKGROUND-IMAGE: url(../images/logincentro.jpg);  xrgb(195,189,189); rbackground-color: rgb(194,189,189)
+}
+TD.toptd {
+	PADDING-RIGHT: 6px; BACKGROUND-IMAGE: url(../images/toplogin.jpg); PADDING-TOP: 44px; rbackground-image: url(./images/topalfa.jpg)
+}
+
+img.separatore{
+		BACKGROUND-IMAGE: url(../images/separatorefiat.jpg);	
+		}
+ 
+
+span.separatore { 
+			font-family:arial;
+			font-size:11 px;
+			font-weight:bold;
+			color:White;	
+		    }
+SPAN.topbar {
+	FONT-SIZE: 8pt; MARGIN-LEFT: 0px; COLOR: white; MARGIN-RIGHT: 0px; FONT-FAMILY: verdana; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ffff00
+}
+A.menulaqteraleIlivSel {
+	BORDER-TOP: #0056a5 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 7pt; PADDING-BOTTOM: 2px; WIDTH: 144px; COLOR: white; PADDING-TOP: 2px; BORDER-BOTTOM: #004583 1px solid; FONT-FAMILY: verdana; HEIGHT: 12px; BACKGROUND-COLOR: #5d9ad1; BORDER-RIGHT-WIDTH: 1px; TEXT-DECORATION: none
+}
+A.menulateraleIIlivSel {
+	MARGIN-TOP: 1px; FONT-SIZE: 7.5pt; MARGIN-LEFT: 10px; COLOR: rgb(100,100,255); PADDING-TOP: 1px; FONT-FAMILY: verdana; HEIGHT: 14px; TEXT-DECORATION: none
+}
+
+td.diagonale{
+	background-image:url(../images/diagonalelogin.jpg)
+}
+
+table {font-size:2px;}
+td.logo {BACKGROUND-IMAGE: url(../images/logologin.jpg)}
+td.tondino{background-image:url(../images/tondinologin.jpg)}
+
+
+A.nomimacchine {
+							color:RGB(70,70,70);
+							font-size: 12px;
+							font-weight:bold;
+							font-family:verdana;
+							text-decoration:none;
+						 }
+
+A.nomimacchine:HOVER {
+							color:black;
+							
+						 }
+
+td.sottotondino{
+					background-image:url(../images/sottotondinologin.jpg)
+					}
+
+
+td.laterale {
+					background-image:url(../images/lateralelogin.jpg)
+				}
+
+span.titolopagina {
+							color:white
+							font-size: 15px;
+							font-weight:bold;
+							font-family:verdana;
+							text-decoration:none;
+						 }

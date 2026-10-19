@@ -1,0 +1,99 @@
+A.path {
+	FONT-SIZE: 8pt; COLOR: white; FONT-FAMILY: arial; TEXT-DECORATION: none;  TEXT-TRANSFORM: uppercase; 
+}
+SPAN.separatore {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: white; FONT-FAMILY: arial
+}
+A.cartype {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; MARGIN-LEFT: 5px; TEXT-TRANSFORM: uppercase; COLOR: white; FONT-FAMILY: verdana; TEXT-DECORATION: none
+}
+SELECT.cartype {
+	FONT-SIZE: 7pt; MARGIN-LEFT: 4px; WIDTH: 136px; FONT-FAMILY: verdana; BACKGROUND-COLOR: #ffffff; elevation: 3
+}
+A.menulateraleIliv {
+	height:22px;
+	BORDER-TOP: rgb(206,60,60) 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 7.5pt; PADDING-BOTTOM: 2px; WIDTH: 142px; COLOR: white; PADDING-TOP: 2px; BORDER-BOTTOM: rgb(180,0,0) 1px solid; FONT-FAMILY: verdana; BACKGROUND-COLOR: rgb(206,0,0); BORDER-RIGHT-WIDTH: 1px; TEXT-DECORATION: none
+}
+A.menulateraleIlivSel {
+	height:22px;
+	BORDER-TOP: rgb(206,60,60) 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 7.5pt; PADDING-BOTTOM: 2px; WIDTH: 142px; COLOR: white; PADDING-TOP: 2px; BORDER-BOTTOM: rgb(180,0,0) 1px solid; FONT-FAMILY: verdana;  BACKGROUND-COLOR: rgb(255,80,80); BORDER-RIGHT-WIDTH: 1px; TEXT-DECORATION: none
+}
+A.menulateraleIliv:hover {
+	COLOR: white; BACKGROUND-COLOR: rgb(220,70,70)
+}
+A.menulateraleIlivSel:hover {
+	COLOR: white
+}
+A.topbar {
+	FONT-WEIGHT: bold; FONT-SIZE: 8.5pt; MARGIN-LEFT: 4px; COLOR: white; MARGIN-RIGHT: 4px; FONT-FAMILY: verdana; TEXT-DECORATION: none;
+}
+IMG.separatore {
+	MARGIN-BOTTOM: 0px; MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+TD.colorescuro {
+	BACKGROUND-COLOR: rgb(206,0,0)
+}
+TD.colorechiaro {
+	BACKGROUND-COLOR: rgb(194,189,189)
+}
+TD.toptd {
+	PADDING-RIGHT: 6px; BACKGROUND-IMAGE: url(../images/topalfa.jpg); PADDING-TOP: 44px; rbackground-image: url(./images/topalfa.jpg)
+}
+SPAN.separatorespan {
+	FONT-SIZE: 2px; BACKGROUND-IMAGE: url(../images/separatorealfa.jpg); MARGIN-LEFT: 4px; WIDTH: 6px; MARGIN-RIGHT: 4px; HEIGHT: 7px
+}
+SPAN.topbar {
+	FONT-SIZE: 8pt; MARGIN-LEFT: 0px; COLOR: white; MARGIN-RIGHT: 0px; FONT-FAMILY: verdana; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ffff00
+}
+A.menulaqteraleIlivSel {
+	BORDER-TOP: #0056a5 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 7pt; PADDING-BOTTOM: 2px; WIDTH: 144px; COLOR: white; PADDING-TOP: 2px; BORDER-BOTTOM: #004583 1px solid; FONT-FAMILY: verdana; HEIGHT: 12px; BACKGROUND-COLOR: #5d9ad1; BORDER-RIGHT-WIDTH: 1px; TEXT-DECORATION: none
+}
+A.menulateraleIIlivSel {
+	MARGIN-TOP: 1px; FONT-SIZE: 7.5pt; MARGIN-LEFT: 10px; COLOR: rgb(100,100,255); PADDING-TOP: 1px; FONT-FAMILY: verdana; HEIGHT: 14px; TEXT-DECORATION: none
+}
+TD.diagonale {
+	BACKGROUND-IMAGE: url(../images/diagonalealfa.jpg)
+}
+TD.servizi {
+	BACKGROUND-IMAGE: url(../images/servizialfa.jpg)
+}
+
+
+table {font-size:2px;}
+td.logo {BACKGROUND-IMAGE: url(../images/logoalfa.jpg)}
+td.tondino{background-image:url(../images/tondinoalfa.jpg)}
+
+A.nomimacchine {
+							color:RGB(70,70,70);
+							font-size: 12px;
+							font-weight:bold;
+							font-family:verdana;
+							text-decoration:none;
+							text-transform:uppercase;
+						 }
+
+A.nomimacchine:HOVER {
+							color:black;
+							
+						 }
+
+td.sottotondino{
+					background-image:url(../images/sottotondinoalfa.jpg)
+					}
+
+
+td.laterale {
+					background-image:url(../images/lateralealfa.jpg)
+				}
+
+span.titolopagina {
+							color:white
+							font-size: 15px;
+							font-weight:bold;
+							font-family:verdana;
+							text-decoration:none;
+						 }
+
