@@ -1,11 +1,11 @@
 {
-  "name": "ducatone",
-  "productName": "DucatONE",
-  "version": "3.1.0",
-  "description": "DucatONE - Manuale officina Fiat Ducato",
+  "name": "officinaone",
+  "productName": "OfficinaONE",
+  "version": "3.2.0",
+  "description": "OfficinaONE - Manuali officina (progetto amatoriale senza scopo di lucro)",
   "main": "main.js",
   "author": {
-    "name": "eLearn",
+    "name": "OfficinaONE",
     "email": "tecnologo83@gmail.com"
   },
   "license": "UNLICENSED",
@@ -17,28 +17,60 @@
     "electron": "44.7.2",
     "electron-builder": "26.0.12"
   },
-  "homepage": "https://github.com/Projekto1983/DucatONE",
+  "homepage": "https://github.com/Projekto1983/OfficinaONE",
   "build": {
     "appId": "it.ducatone.app",
-    "productName": "DucatONE",
-    "executableName": "ducatone",
+    "productName": "OfficinaONE",
+    "executableName": "OfficinaONE",
+    "copyright": "OfficinaONE - progetto amatoriale senza scopo di lucro",
     "files": [
       "**/*",
-      "!build_icon.ico"
+      "!dist/**",
+      "!*.md",
+      "!full.json",
+      "!LEGGIMI-portatile.txt"
     ],
     "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build_icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "OfficinaONE",
+      "artifactName": "OfficinaONE-Update-${version}.exe",
+      "installerIcon": "build_icon.ico",
+      "uninstallerIcon": "build_icon.ico",
+      "language": "1040",
+      "differentialPackage": false
+    },
     "linux": {
       "target": [
         "AppImage"
       ],
+      "executableName": "officinaone",
       "icon": "build_icon.png",
       "category": "Education",
-      "synopsis": "Manuale officina Fiat Ducato",
-      "artifactName": "DucatONE-${version}-x86_64.${ext}"
+      "synopsis": "Manuali officina",
+      "artifactName": "OfficinaONE-Update-${version}-x86_64.${ext}"
     },
     "directories": {
-      "output": "dist"
+      "output": "dist/update"
     },
     "publish": null
+  },
+  "scripts": {
+    "start": "electron ."
   }
 }

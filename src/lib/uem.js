@@ -87,7 +87,7 @@ function viewPage(db, st, id, p, q) {
   const d = docs.find((x) => x.id === id) || docs[0];
   const isAc = d.cat === 'ac';
   const pg = +p || 1;
-  let h = contentHead(db, st, 'DucatONE - Libretto uso e manutenzione') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Libretto uso e manutenzione') + T('content1');
   h += `<div class="uem"><div class="uemside">${isAc ? `<p><a href="ac.html">◀ Tutti i kit aria condizionata</a></p><h1>❄ ${esc(d.ac.eng)}</h1><p class="qnote">${esc(d.ac.tipo)}<br>Codice kit: <b>${esc(d.ac.code)}</b>${d.ac.gas ? `<br>Carica R134a: <b>${esc(d.ac.gas)} kg</b>` : ''}</p>` : '<h1>📕 Libretto di uso e manutenzione</h1>'}
 ${!isAc && docs.length > 1 ? `<div class="uemed">${docs.map((x) => `<a href="uem.html?d=${x.id}" class="${x.id === d.id ? 'sel' : ''}">${esc(x.short)}</a>`).join('')}</div>` : ''}
 <form class="uemq" onsubmit="location.href='uem.html?d=${d.id}&q='+encodeURIComponent(this.q.value.trim());return false;"><input name="q" type="search" placeholder="Cerca nel libretto…" value="${esc(q || '')}"><button>Cerca</button></form>`;
@@ -112,7 +112,7 @@ document.getElementById('dl').onclick=function(e){e.preventDefault();fetch('uems
 function acPage(db, st, showAll) {
   const model = Math.floor((st.model || 0) / 1e6) === 250 ? '250' : '244';
   const list = all().filter((d) => d.cat === 'ac' && (showAll || d.model === model));
-  let h = contentHead(db, st, 'DucatONE - Aria condizionata') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Aria condizionata') + T('content1');
   h += `<div class="acpage"><h1>❄ Kit aria condizionata Delphi Diavia</h1>
 <p class="ghint">Istruzioni di montaggio e manutenzione degli impianti A/C aftermarket Diavia per il ${showAll ? 'Ducato 244 e il Nuovo Ducato X250' : model === '250' ? 'Nuovo Ducato X250' : 'Ducato 244'} (valide anche per i gemelli Peugeot Boxer e Citroën Jumper indicati). ${showAll ? `<a href="ac.html">Solo il modello attuale</a>` : `<a href="ac.html?all=1">Mostra anche l'altro modello</a>`}</p>
 <table class="gtab actab"><tr><th>Modello</th><th>Motore</th><th>Tipo di kit</th><th>Codice</th><th>Carica R134a</th><th>Pagine</th><th></th></tr>${list

@@ -20,7 +20,7 @@ table.tabellaprincipale td[width="16"] { width: 16px; }
 embed.electrical { width: 100% !important; height: 78vh !important; min-height: 420px; }
 @media print { embed.electrical { height: 500px !important; } }
 
-/* ---- DucatONE: intestazioni senza immagini, colori piatti della palette originale ---- */
+/* ---- OfficinaONE: intestazioni senza immagini, colori piatti della palette originale ---- */
 td.logo { background: #004594 url(logo@2x.jpg) no-repeat center center !important; background-size: 162px 66px !important; width: 162px; min-width: 162px; }
 td.toptd { background-image: none !important; background-color: #004594 !important; }
 td.tondino, td.sottotondino { background-image: none !important; background-color: #004594; }
@@ -79,12 +79,10 @@ div.guida .note { background: #fff4e6; border-left: 4px solid #fb6705; padding: 
 div.guida .btn { display: inline-block; background: #fb6705; color: #fff; font-weight: bold; font-size: 7.5pt; border-radius: 3px; padding: 0 6px; }
 div.guida .top { font-size: 7.5pt; float: right; color: #888; }
 /* loghi marche nella pagina Scelta del modello */
-div.brands { display: flex; justify-content: center; align-items: flex-end; gap: 48px; margin: 6px 0 4px; }
-div.brands a { text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-div.brands img { height: 78px; width: auto; }
-div.brands span { font: 8pt verdana; color: #555; }
+div.brands { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 10px 0 6px; }
+div.brands span { font: 10pt verdana; color: #555; }
 div.brands b { color: #004594; }
-div.brands a:hover img { transform: scale(1.06); } div.brands img { transition: transform .15s; }
+div.brands small { font: 7.5pt verdana; color: #888; }
 
 /* ---- menu: separatore e Ricambi online ---- */
 div.menusep { height: 0; border-top: 2px solid #fb6705; margin: 6px 8px 4px; }
@@ -184,7 +182,7 @@ div.timeline .tt { color: #333; margin-top: 1px; line-height: 1.4; }
 div.newsorig { margin: 8px auto 0; max-width: 760px; color: #888; font-size: 7pt; border-top: 1px solid #e3e8f0; padding-top: 6px; }
 div.srch .sfuzzy, p.scount .sfuzzy { color: #888; font-weight: normal; font-size: 8pt; }
 
-/* ===== DucatONE 2.2 ===== */
+/* ===== OfficinaONE 2.2 ===== */
 /* barra azioni sopra il contenuto */
 div.actbar { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 8px; font: 8pt verdana; }
 div.actbar a { text-decoration: none; color: #004594; background: #eef3fa; border: 1px solid #c9d3e3; border-radius: 12px; padding: 2px 9px; }
@@ -276,7 +274,7 @@ div.wsheet .wsign { display: flex; justify-content: space-between; margin-top: 2
 @media print { div.actbar, div.wleg, div.linkbox.linked, a.rstar { display: none !important; } }
 html.notte-in div.pres img { filter: none; }
 
-/* ===== DucatONE 2.3 ===== */
+/* ===== OfficinaONE 2.3 ===== */
 span.newb { background: #fff; color: #c4302b; border-radius: 8px; padding: 0 5px; font-size: 7pt; margin-left: 4px; }
 a.mbanner { display: block; margin: 12px auto 0; max-width: 760px; background: #fff3e6; border: 1px solid #f5b47a; color: #8a3b00; border-radius: 6px; padding: 7px 12px; font: 8pt verdana; text-decoration: none; text-align: left; }
 a.mbanner:hover { background: #ffe6cc; }

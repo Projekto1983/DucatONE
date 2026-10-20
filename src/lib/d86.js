@@ -67,15 +67,15 @@ function mainPage(db, st, d, p, o) {
   const pathIds = new Set(path.map((n) => n.id));
   const sec = path[0];
   let h = withMeta(T('main0'));
-  h += `\t\t<title>DucatONE - Ducato 1986 - ${esc(leaf ? leaf.t : '')}</title>\n\t\t<style>html,body{overflow:hidden;height:100%}</style>\n${T('script')}\t\t<link rel="stylesheet" type="text/css" href="${css.LINK}">\n`;
+  h += `\t\t<title>OfficinaONE - Ducato 1986 - ${esc(leaf ? leaf.t : '')}</title>\n\t\t<style>html,body{overflow:hidden;height:100%}</style>\n${T('script')}\t\t<link rel="stylesheet" type="text/css" href="${css.LINK}">\n`;
   h += T('main1');
   h += `<td class="toptd" align="right" colSpan="1" height="68">
          <A class="topbar" href="models.html" title="Torna alla pagina iniziale">Home page</A><span class="topbar">|</span>
          <a class="topbar" href="d86search.html" target="framemain" title="Cerca nel manuale 1986">Cerca</a><span class="topbar">|</span>
          <A class="topbar" href="#" title="Stampa la pagina visualizzata" onclick="printFrame(self.framemain);return false;">Stampa</A><span class="topbar">|</span>
          <A class="topbar" href="#" title="Salva la pagina visualizzata in PDF" onclick="exportPdf(self.framemain);return false;">Salva in Pdf</A><span class="topbar">|</span>
-         <A class="topbar" href="guida.html" target="framemain" title="Guida all'uso di DucatONE">Aiuto</A><span class="topbar">|</span>
-         <A class="topbar" href="#" title="Chiudi DucatONE" onclick="exitApp();return false;">Esci dal software</A>
+         <A class="topbar" href="guida.html" target="framemain" title="Guida all'uso di OfficinaONE">Aiuto</A><span class="topbar">|</span>
+         <A class="topbar" href="#" title="Chiudi OfficinaONE" onclick="exitApp();return false;">Esci dal software</A>
       </td>`;
   h += T('main2');
   h += `<a class="backbtn" href="#" onclick="history.back();return false;" title="Torna alla pagina precedente">&#9664; Torna alla precedente</a>`;
@@ -134,7 +134,7 @@ function pagePage(db, st, d, p, o) {
   const path = leaf ? pathTo(d, leaf) : [];
   const title = leaf ? leaf.t : 'Pagina ' + p;
   const node = BASE + p;
-  let h = contentHead(db, st, 'DucatONE - ' + title).replace('</title>', '</title>\n\t\t<meta name="elnode" content="' + esc('Ducato 1986 · ' + title + ' · pag. ' + p) + '">') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - ' + title).replace('</title>', '</title>\n\t\t<meta name="elnode" content="' + esc('Ducato 1986 · ' + title + ' · pag. ' + p) + '">') + T('content1');
   const n = d.count;
   const nav = (cls) => `<div class="d86nav ${cls}">
   <a class="d86btn${p <= 1 ? ' dis' : ''}" href="d86main.html?p=${Math.max(1, p - 1)}" target="_parent" title="Pagina precedente (←)">◀ Precedente</a>
@@ -193,7 +193,7 @@ var c=document.querySelector('.d86strip .cur'),sp=document.querySelector('.d86st
 
 // ---------------------------------------------------------------- schede rapide
 function quickPage(db, st, d) {
-  let h = contentHead(db, st, 'DucatONE - Ducato 1986 - Schede rapide') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Ducato 1986 - Schede rapide') + T('content1');
   h += `<h1 class="bigtext1">⚡ Schede rapide — Ducato 1986</h1><p class="contents_testonormale" style="color:#555">Le pagine più consultate in officina, raccolte per argomento. Clic per aprire la pagina originale del manuale.</p><div class="d86quick">`;
   for (const g of d.idx.quick || []) {
     h += `<div class="qk"><h3>${esc(g.i)} ${esc(g.t)}</h3>${g.l.map(([t, p]) => `<a href="d86main.html?p=${p}" target="_parent"><img loading="lazy" src="d86img?p=${p}&t=1"><span>${esc(t)}<small>pag. ${p}</small></span></a>`).join('')}</div>`;
@@ -203,7 +203,7 @@ function quickPage(db, st, d) {
 
 // ---------------------------------------------------------------- attrezzatura specifica
 function toolsPage(db, st, d) {
-  let h = contentHead(db, st, 'DucatONE - Ducato 1986 - Attrezzatura') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Ducato 1986 - Attrezzatura') + T('content1');
   const tl = d.idx.tools || [];
   h += `<h1 class="bigtext1">🧰 Attrezzatura specifica Fiat — Ducato 1986</h1><p class="contents_testonormale" style="color:#555">${tl.length} attrezzi elencati nel manuale, con le pagine in cui vengono usati.</p>
 <input type="search" class="compsearch" placeholder="Filtra per codice o descrizione…" oninput="var v=this.value.toLowerCase();document.querySelectorAll('.d86tool tr[data-k]').forEach(function(r){r.style.display=r.dataset.k.indexOf(v)>=0?'':'none'})" style="width:60%;padding:4px;margin:4px 0 8px">
@@ -217,7 +217,7 @@ function toolsPage(db, st, d) {
 
 // ---------------------------------------------------------------- indice completo
 function indexPage(db, st, d, eng) {
-  let h = contentHead(db, st, 'DucatONE - Ducato 1986 - Indice') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Ducato 1986 - Indice') + T('content1');
   h += `<h1 class="bigtext1">📑 Ducato gamma 1986 — indice del manuale</h1><p class="contents_testonormale" style="color:#555">${esc(d.idx.sub)} · ${d.count} pagine${eng ? ' · filtro: ' + esc((ENG.find((x) => x[0] === eng) || [])[1]) : ''}</p>`;
   const walk = (pid, lv) => {
     let o = '';
@@ -253,7 +253,7 @@ function searchHits(d, query) {
 }
 function searchPage(db, st, d, q) {
   const query = (q || '').trim();
-  let h = contentHead(db, st, 'DucatONE - Ducato 1986 - Cerca') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Ducato 1986 - Cerca') + T('content1');
   h += `<h1 class="bigtext1">🔎 Cerca nel manuale Ducato 1986</h1>
 <form onsubmit="location.href='d86search.html?q='+encodeURIComponent(this.q.value.trim());return false;" style="margin:6px 0 10px"><input name="q" value="${esc(query)}" style="width:60%;padding:4px;font:10pt verdana" placeholder="Es. coppia serraggio testa, frizione, pompa iniezione…" autofocus> <button>Cerca</button></form>`;
   if (!query) return h + '<p class="contents_testonormale">Scrivi una o più parole: la ricerca avviene nel testo di tutte le pagine e nei titoli dei capitoli.</p></body></HTML>';
@@ -270,7 +270,7 @@ function searchPage(db, st, d, q) {
 
 // ---------------------------------------------------------------- preferiti / cronologia
 function listPage(db, st, d, title, pages, empty) {
-  let h = contentHead(db, st, 'DucatONE - Ducato 1986') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Ducato 1986') + T('content1');
   h += `<h1 class="bigtext1">${esc(title)}</h1>`;
   if (!pages.length) return h + `<p class="contents_testonormale">${esc(empty)}</p></body></HTML>`;
   for (const p of pages) {
@@ -282,7 +282,7 @@ function listPage(db, st, d, title, pages, empty) {
 
 // ---------------------------------------------------------------- scaricamento dati
 function getPage(state, upd) {
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>DucatONE - Ducato 1986</title><link rel="stylesheet" href="./app/fix.css"><script src="./app/i18n.js"></script><style>
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>OfficinaONE - Ducato 1986</title><link rel="stylesheet" href="./app/fix.css"><script src="./app/i18n.js"></script><style>
 body{margin:0;font:10pt Verdana,sans-serif;background:#eef3fa;color:#123}
 .box{max-width:560px;margin:60px auto;background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,40,100,.15);padding:24px 28px;border-top:5px solid #fb6705}
 h1{font-size:15pt;color:#004594;margin:0 0 8px} .bar{height:14px;background:#dde6f2;border-radius:7px;overflow:hidden;margin:16px 0 6px} .bar i{display:block;height:100%;width:0;background:#fb6705;transition:width .3s}
@@ -293,7 +293,7 @@ ${upd ? '<p><b>È disponibile un aggiornamento del manuale Ducato 1986</b>: pagi
 <div id="st">${state && state.error ? `<div class="er">Scaricamento non riuscito: ${esc(state.error)}</div>` : ''}</div>
 <div class="bar"><i id="pb"></i></div><div class="sm" id="pt">&nbsp;</div>
 <button id="go">⬇ ${upd ? 'Aggiorna' : 'Scarica'} il manuale Ducato 1986</button> ${upd ? '<a class="b" href="d86skip" style="background:#667">Usa la versione attuale</a>' : '<a class="b" href="models.html" style="background:#667">Torna alla home</a>'}
-<p class="sm" style="margin-top:16px">In alternativa copia il file <b>ducato86.pak</b> nella cartella dati del programma e riapri DucatONE.</p></div>
+<p class="sm" style="margin-top:16px">In alternativa copia il file <b>ducato86.pak</b> nella cartella dati del programma e riapri OfficinaONE.</p></div>
 <script>
 var go=document.getElementById('go'),pb=document.getElementById('pb'),pt=document.getElementById('pt');
 function poll(){fetch('d86get?status=1').then(function(r){return r.json()}).then(function(s){

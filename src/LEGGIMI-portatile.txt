@@ -1,0 +1,11 @@
+OfficinaONE PORTATILE (prima chiamato DucatONE)
+
+1. Estrai questa cartella dove vuoi (anche su chiavetta USB).
+2. Avvia OfficinaONE.exe.
+
+Note, preferiti, libretti e impostazioni vengono salvati in OfficinaONE-dati, accanto al programma.
+Se avevi la versione portatile DucatONE, copia qui accanto la sua cartella DucatONE-dati: verrà usata così com'è.
+Non serve installare nulla.
+
+Progetto amatoriale gratuito e senza scopo di lucro, non affiliato a Fiat/Stellantis.
+I contenuti dei manuali appartengono ai rispettivi titolari. Vietata la vendita.

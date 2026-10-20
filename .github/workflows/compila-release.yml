@@ -1,0 +1,105 @@
+name: Compila e pubblica OfficinaONE
+# Si attiva caricando il ramo "build". Compila Windows e Linux e crea la release vX.Y.Z
+# (versione da src/package.json, note da src/NOTE-RELEASE.md).
+on:
+  push:
+    branches: [build]
+permissions:
+  contents: write
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  dati:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepara la release "dati" con i pacchetti del manuale (solo la prima volta)
+        run: |
+          set -e
+          if gh release view dati --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then echo "dati presenti"; exit 0; fi
+          mkdir d && cd d
+          gh release download --repo "$GITHUB_REPOSITORY" -p '*Portable*.zip' -p 'ducato86.pak' -p 'x250.pak'
+          unzip -j -o *Portable*.zip '*/resources/data/data.pak'
+          ls -la
+          gh release create dati --repo "$GITHUB_REPOSITORY" --prerelease --title "Dati del manuale (uso interno per la compilazione)" \
+            --notes "Pacchetti dati usati dalla compilazione automatica. Per scaricare il programma usa l'ultima release." data.pak ducato86.pak x250.pak
+
+  windows:
+    needs: dati
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Dati
+        shell: bash
+        run: gh release download dati --repo "$GITHUB_REPOSITORY" -D data
+      - name: Compila
+        shell: bash
+        working-directory: src
+        run: |
+          set -e
+          npm ci --no-audit --no-fund
+          npx electron-builder --win --x64
+          npx electron-builder --win --x64 --config full.json
+      - name: Versione portatile
+        shell: pwsh
+        working-directory: src
+        run: |
+          $v = (Get-Content package.json | ConvertFrom-Json).version
+          New-Item -ItemType Directory -Force -Path port | Out-Null
+          Copy-Item -Recurse dist/full/win-unpacked port/OfficinaONE
+          Set-Content -Path port/OfficinaONE/portable.txt -Value 'versione portatile'
+          Copy-Item LEGGIMI-portatile.txt port/OfficinaONE/LEGGIMI.txt
+          Compress-Archive -Path port/OfficinaONE -DestinationPath "dist/OfficinaONE-Portable-$v.zip" -CompressionLevel Optimal
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            src/dist/update/OfficinaONE-Update-*.exe
+            src/dist/full/OfficinaONE-Setup-*.exe
+            src/dist/OfficinaONE-Portable-*.zip
+          compression-level: 0
+
+  linux:
+    needs: dati
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Dati
+        run: gh release download dati --repo "$GITHUB_REPOSITORY" -D data
+      - name: Compila
+        working-directory: src
+        run: |
+          set -e
+          npm ci --no-audit --no-fund
+          npx electron-builder --linux AppImage
+          npx electron-builder --linux AppImage --config full.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: |
+            src/dist/update/*.AppImage
+            src/dist/full/*.AppImage
+          compression-level: 0
+
+  release:
+    needs: [windows, linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: art, merge-multiple: true }
+      - name: Crea la release
+        run: |
+          set -e
+          V=$(jq -r .version src/package.json)
+          mkdir out && find art -type f \( -name '*.exe' -o -name '*.zip' -o -name '*.AppImage' \) -exec cp {} out/ \;
+          gh release download dati --repo "$GITHUB_REPOSITORY" -D out -p ducato86.pak -p x250.pak
+          cp src/NOTE-RELEASE.md notes.md
+          echo "" >> notes.md
+          echo "sha256: $(sha256sum out/OfficinaONE-Update-$V.exe | cut -d' ' -f1)" >> notes.md
+          echo "sha256-linux: $(sha256sum out/OfficinaONE-Update-$V-x86_64.AppImage | cut -d' ' -f1)" >> notes.md
+          ls -la out; cat notes.md
+          gh release create "v$V" --repo "$GITHUB_REPOSITORY" --title "OfficinaONE $V" --notes-file notes.md --target "$GITHUB_SHA" --latest out/*

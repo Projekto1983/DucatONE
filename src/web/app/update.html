@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Aggiornamento DucatONE</title><style>
+<html><head><meta charset="utf-8"><title>Aggiornamento OfficinaONE</title><style>
 html,body{margin:0;font:13px Verdana,Tahoma,sans-serif;color:#222;background:#fff;user-select:none}
 .h{background:#004594;border-bottom:4px solid #fb6705;color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px}
 .h img{height:44px}.h b{font-size:15px}
@@ -18,15 +18,17 @@ button:disabled{opacity:.5;cursor:default}
 <div class="btns"><button id="later">Più tardi</button><button id="go">Aggiorna</button></div>
 <script>
 const i=elearnApp.updateInfo();
-document.getElementById('ver').textContent='DucatONE '+i.version+' (installata: '+i.current+')';
+document.getElementById('ver').textContent='OfficinaONE '+i.version+' (installata: '+i.current+')';
 document.getElementById('notes').textContent=i.notes||'Miglioramenti e correzioni.';
 const go=document.getElementById('go'),later=document.getElementById('later'),bar=document.getElementById('bar'),msg=document.getElementById('msg');
 later.onclick=()=>window.close();
+if(i.forced){later.textContent='Esci';document.querySelector('.h b').textContent='Aggiornamento obbligatorio';
+ document.getElementById('notes').insertAdjacentHTML('beforebegin','<div style="color:#c00;font-weight:bold;margin:6px 0">Questa versione non è più supportata: per continuare a usare OfficinaONE è necessario aggiornare.</div>');}
 go.onclick=()=>{go.disabled=later.disabled=true;bar.style.display='block';msg.className='msg';msg.textContent='Download in corso…';elearnApp.updateStart();};
 elearnApp.onUpdate(p=>{
   if(p.error){msg.className='msg err';msg.textContent=p.error;go.disabled=later.disabled=false;go.textContent='Riprova';return;}
   if(p.total){bar.firstChild.style.width=(p.done/p.total*100).toFixed(1)+'%';msg.textContent='Download '+(p.done/1048576).toFixed(1)+' / '+(p.total/1048576).toFixed(1)+' MB';}
   else if(p.done) msg.textContent='Download '+(p.done/1048576).toFixed(1)+' MB';
-  if(p.installing){bar.firstChild.style.width='100%';msg.textContent='Installazione in corso: DucatONE si chiuderà e si riaprirà da solo…';}
+  if(p.installing){bar.firstChild.style.width='100%';msg.textContent='Installazione in corso: OfficinaONE si chiuderà e si riaprirà da solo…';}
 });
 </script></body></html>

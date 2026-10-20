@@ -3,6 +3,7 @@ contextBridge.exposeInMainWorld('elearnApp', {
   back: () => ipcRenderer.send('back'),
   forward: () => ipcRenderer.send('forward'),
   exit: () => ipcRenderer.send('exit'),
+  disclaimerOk: () => ipcRenderer.send('disclaimer-ok'),
   info: () => ipcRenderer.sendSync('info'),
   focusMain: () => ipcRenderer.send('focusMain'),
   onNavState: (cb) => ipcRenderer.on('nav', (e, s) => cb(s)),

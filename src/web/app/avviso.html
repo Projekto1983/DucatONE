@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>OfficinaONE - Avviso</title><style>
+html,body{margin:0;font:12.5px Verdana,Tahoma,sans-serif;color:#222;background:#fff;user-select:none}
+.h{background:#004594;border-bottom:4px solid #fb6705;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px}
+.h img{height:44px}.h b{font-size:15px}
+.c{padding:12px 20px 4px;line-height:1.5}
+.c ul{margin:6px 0;padding-left:18px}.c li{margin:4px 0}
+.c .d{background:#fff4ec;border-left:4px solid #fb6705;padding:8px 10px;margin:10px 0}
+.c small{color:#666}
+label{display:flex;gap:8px;align-items:flex-start;margin:10px 0 0;cursor:pointer;font-weight:bold}
+.btns{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px 16px}
+button{font:bold 12px Verdana;border:0;border-radius:3px;padding:8px 16px;cursor:pointer}
+#ok{background:#fb6705;color:#fff}#ok:disabled{opacity:.45;cursor:default}#no{background:#e4e4e4}
+</style><script src="i18n.js"></script></head><body>
+<div class="h"><img src="logo@2x.jpg"><div><b>Prima di iniziare</b><br>Leggi e accetta per usare OfficinaONE</div></div>
+<div class="c">
+<p><b>OfficinaONE è un progetto amatoriale, gratuito e senza scopo di lucro.</b> Il suo unico scopo è rendere consultabili sui sistemi attuali (Windows 10/11, Linux) i vecchi manuali d'officina su CD, che funzionavano solo con Internet Explorer e vecchie versioni di Windows, e semplificarne l'uso.</p>
+<ul>
+<li><b>Non è un prodotto ufficiale.</b> Non è affiliato, approvato o sponsorizzato da Fiat, Stellantis, Peugeot, Citroën, Delphi o altri titolari. I nomi dei veicoli servono solo a indicare a cosa si riferiscono i manuali.</li>
+<li><b>I contenuti dei manuali</b> (testi, immagini, schemi) <b>appartengono ai rispettivi titolari</b>. OfficinaONE non ne rivendica alcun diritto.</li>
+<li><b>Il programma è gratuito e non può essere venduto.</b> Non ci sono pubblicità né guadagni di alcun tipo.</li>
+<li><b>Titolari dei diritti:</b> chi detiene i diritti su un contenuto e ne chiede la rimozione può scrivere a <b>tecnologo83@gmail.com</b>; il contenuto verrà tolto al più presto.</li>
+</ul>
+<div class="d"><b>Dichiarazione dell'utente.</b> Scaricando e usando OfficinaONE dichiari di essere titolare dei diritti sui manuali consultati, oppure di possederne già una copia originale privata (ad esempio il CD), e di usare questo programma solo per tua comodità personale, senza ridistribuirne i contenuti.</div>
+<small>Le informazioni dei manuali sono fornite così come sono: verifica sempre dati e procedure prima di intervenire sul veicolo.</small>
+<label><input type="checkbox" id="chk"> Ho letto, dichiaro quanto sopra e accetto</label>
+</div>
+<div class="btns"><button id="no">Esci</button><button id="ok" disabled>Accetto e continuo</button></div>
+<script>
+const ok=document.getElementById('ok');
+document.getElementById('chk').onchange=e=>ok.disabled=!e.target.checked;
+ok.onclick=()=>elearnApp.disclaimerOk();
+document.getElementById('no').onclick=()=>elearnApp.exit();
+</script></body></html>

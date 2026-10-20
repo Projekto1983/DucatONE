@@ -17,11 +17,14 @@ const LOG = require('./lib/log');
 const REPORT_EMAIL = 'tecnologo83@gmail.com';
 // versione portatile: se accanto al programma c'è portable.txt, dati e impostazioni restano nella stessa cartella (es. chiavetta USB)
 const PORTABLE = (() => { try { return app.isPackaged && fs.existsSync(path.join(path.dirname(process.execPath), 'portable.txt')); } catch (_) { return false; } })();
-const PORTABLE_DIR = PORTABLE ? path.join(path.dirname(process.execPath), 'DucatONE-dati') : null;
+// nome precedente del programma: DucatONE. Se le sue cartelle esistono, si continuano a usare (nessun dato perso)
+const legacyDir = (base, oldName, newName) => { try { if (fs.existsSync(path.join(base, oldName)) && !fs.existsSync(path.join(base, newName))) return path.join(base, oldName); } catch (_) {} return path.join(base, newName); };
+const PORTABLE_DIR = PORTABLE ? legacyDir(path.dirname(process.execPath), 'DucatONE-dati', 'OfficinaONE-dati') : null;
 if (PORTABLE) { try { fs.mkdirSync(PORTABLE_DIR, { recursive: true }); app.setPath('userData', path.join(PORTABLE_DIR, 'impostazioni')); } catch (_) {} }
+else { try { app.setPath('userData', legacyDir(app.getPath('appData'), 'DucatONE', 'OfficinaONE')); } catch (_) {} }
 const IS_LINUX = process.platform === 'linux';
-const LOCAL_DIR = PORTABLE ? PORTABLE_DIR : process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'DucatONE')
-  : IS_LINUX ? path.join(process.env.XDG_DATA_HOME || path.join(require('os').homedir(), '.local', 'share'), 'DucatONE') : null;
+const LOCAL_DIR = PORTABLE ? PORTABLE_DIR : process.env.LOCALAPPDATA ? legacyDir(process.env.LOCALAPPDATA, 'DucatONE', 'OfficinaONE')
+  : IS_LINUX ? legacyDir(process.env.XDG_DATA_HOME || path.join(require('os').homedir(), '.local', 'share'), 'DucatONE', 'OfficinaONE') : null;
 // Linux (AppImage): i dati inclusi sono in sola lettura; vengono copiati una volta nella cartella locale
 function movePak(src, dst) {
   if (IS_LINUX) {
@@ -91,7 +94,7 @@ function migrateD86() {
   } catch (e) { LOG.error('spostamento ducato86.pak non riuscito:', e.message); }
 }
 // ------------------------------------------------------------ Nuovo Ducato X250 (pacchetto aggiuntivo, stesso formato del CD 244)
-const X250_URL = process.env.ELEARN_X250_URL || 'https://github.com/Projekto1983/DucatONE/releases/latest/download/x250.pak';
+const X250_URL = process.env.ELEARN_X250_URL || 'https://github.com/Projekto1983/OfficinaONE/releases/latest/download/x250.pak';
 const is250 = (id) => Math.floor((+id || 0) / 1e6) === 250;
 function x250File() {
   const c = [process.env.ELEARN_X250, path.join(localDataDir(), 'x250.pak'), path.join(process.resourcesPath || '', 'data', 'x250.pak'), path.join(appBaseDir(), 'data', 'x250.pak'), path.join(app.getPath('userData'), 'data', 'x250.pak')];
@@ -118,7 +121,7 @@ async function x250Download() {
   const dst = path.join(localDataDir(), 'x250.pak'), tmp = dst + '.part';
   try {
     fs.mkdirSync(localDataDir(), { recursive: true });
-    const r = await net.fetch(X250_URL, { headers: { 'User-Agent': 'DucatONE' } });
+    const r = await net.fetch(X250_URL, { headers: { 'User-Agent': 'OfficinaONE' } });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     x250dl.total = +r.headers.get('content-length') || 0;
     const out = fs.createWriteStream(tmp);
@@ -154,7 +157,7 @@ function storeAny(file) { // immagini e file del CD: prima 244, poi X250
 // ------------------------------------------------------------ Ducato gamma 1986 (pacchetto aggiuntivo)
 const D86 = require('./lib/d86');
 const UEM = require('./lib/uem');
-const D86_URL = process.env.ELEARN_D86_URL || 'https://github.com/Projekto1983/DucatONE/releases/latest/download/ducato86.pak';
+const D86_URL = process.env.ELEARN_D86_URL || 'https://github.com/Projekto1983/OfficinaONE/releases/latest/download/ducato86.pak';
 function d86File() {
   const c = [process.env.ELEARN_D86, path.join(localDataDir(), 'ducato86.pak'), path.join(process.resourcesPath || '', 'data', 'ducato86.pak'), path.join(appBaseDir(), 'data', 'ducato86.pak'), path.join(app.getPath('userData'), 'data', 'ducato86.pak')];
   return c.find((f) => { try { return f && fs.statSync(f).size > 1e6; } catch (_) { return false; } }) || null;
@@ -169,7 +172,7 @@ async function d86Download() {
   const dst = path.join(localDataDir(), 'ducato86.pak'), tmp = dst + '.part';
   try {
     fs.mkdirSync(localDataDir(), { recursive: true });
-    const r = await net.fetch(D86_URL, { headers: { 'User-Agent': 'DucatONE' } });
+    const r = await net.fetch(D86_URL, { headers: { 'User-Agent': 'OfficinaONE' } });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     d86dl.total = +r.headers.get('content-length') || 0;
     const out = fs.createWriteStream(tmp);
@@ -707,7 +710,7 @@ function tabTitle(t) {
     return (e.CODE ? e.CODE + ' ' : '') + e.NAME;
   }
   if (/models\.html/.test(u)) return 'Home page';
-  return 'DucatONE';
+  return 'OfficinaONE';
 }
 function sendTabs() {
   if (!toolbar || toolbar.webContents.isDestroyed() || !active) return;
@@ -762,7 +765,7 @@ function createWindow() {
     if (!vis) ws = { max: ws.max, bounds: { width: Math.min(ws.bounds.width, d.width), height: Math.min(ws.bounds.height, d.height) } };
   }
   const wb = (ws && ws.bounds) || { width: +process.env.ELEARN_W || 1280, height: +process.env.ELEARN_H || 800 };
-  win = new BaseWindow({ ...wb, minWidth: 640, minHeight: 480, title: 'DucatONE', icon: ICON, show: false });
+  win = new BaseWindow({ ...wb, minWidth: 640, minHeight: 480, title: 'OfficinaONE', icon: ICON, show: false });
   let wsTimer = null;
   const saveWin = () => {
     clearTimeout(wsTimer);
@@ -798,8 +801,10 @@ function createWindow() {
   if (!ws || ws.max) win.maximize();
   win.show();
   win.on('closed', () => app.quit());
+  const disc = showDisclaimer();
   let updChecked = false;
-  const firstCheck = () => { if (updChecked) return; updChecked = true; checkUpdates(false); };
+  const firstCheck = () => { if (updChecked) return; if (discWin) return setTimeout(firstCheck, 2000); updChecked = true; checkUpdates(false); };
+  if (disc) LOG.info('mostro l\'avviso iniziale');
   try { tabs[0] && tabs[0].view.webContents.once('did-finish-load', () => setTimeout(firstCheck, 1200)); } catch (_) {}
   setTimeout(firstCheck, 5000);
   setInterval(() => checkUpdates(false), 6 * 3600 * 1000);
@@ -814,7 +819,7 @@ async function checkUpdates(manual) {
     const { net } = require('electron');
     const info = await require('./lib/updater').check((u, o) => net.fetch(u, o), VERSION.version, settings.updateUrl);
     if (!info) { LOG.info('nessun aggiornamento (versione ' + VERSION.version + ')'); return { none: true }; }
-    if (!manual && sessionSkip === info.version) return { later: true }; // «Più tardi»: non ripropone fino al prossimo avvio
+    if (!manual && !info.forced && sessionSkip === info.version) return { later: true }; // «Più tardi»: non ripropone fino al prossimo avvio
     updInfo = info;
     LOG.info('aggiornamento disponibile', info.version, '- mostro la finestra');
     showUpdateWindow();
@@ -836,7 +841,8 @@ function showUpdateWindow() {
     }
   } catch (_) {}
   // finestra figlia della principale: resta sopra al programma, centrata, e lo blocca finché non si sceglie
-  updWin = new BrowserWindow({ parent: win && !win.isDestroyed() ? win : undefined, show: false, ...pos, width: W, height: H, resizable: false, minimizable: false, maximizable: false, title: 'Aggiornamento DucatONE', icon: ICON, autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.js') } });
+  const forced = !!(updInfo && updInfo.forced);
+  updWin = new BrowserWindow({ parent: win && !win.isDestroyed() ? win : undefined, modal: forced && process.platform !== 'linux', closable: true, show: false, ...pos, width: W, height: H, resizable: false, minimizable: false, maximizable: false, title: 'Aggiornamento OfficinaONE', icon: ICON, autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.js') } });
   updWin.setMenu(null);
   updWin.loadURL('elearn://app/app/update.html');
   // sempre davanti: mostrata in primo piano appena pronta, anche se la finestra principale sta ancora caricando
@@ -854,18 +860,20 @@ function showUpdateWindow() {
   updWin.on('closed', () => {
     if (!updBusy && updInfo) sessionSkip = updInfo.version;
     updWin = null;
+    // aggiornamento obbligatorio: senza aggiornare il programma non si usa
+    if (forced && !updBusy) { LOG.info('aggiornamento obbligatorio rifiutato: chiusura'); app.quit(); }
   });
 }
 ipcMain.on('upd-info', (e) => { e.returnValue = { ...(updInfo || {}), current: VERSION.version }; });
 ipcMain.handle('upd-check', () => checkUpdates(true));
 ipcMain.on('upd-start', async (e) => {
   if (!updInfo || updBusy) return;
-  if (PORTABLE || (IS_LINUX && !process.env.APPIMAGE)) { shell.openExternal('https://github.com/Projekto1983/DucatONE/releases/latest'); try { updWin && updWin.close(); } catch (_) {} return; }
+  if (PORTABLE || (IS_LINUX && !process.env.APPIMAGE)) { shell.openExternal('https://github.com/Projekto1983/OfficinaONE/releases/latest'); try { updWin && updWin.close(); } catch (_) {} if (updInfo.forced) app.quit(); return; }
   updBusy = true;
   const send = (p) => { try { e.sender.send('upd', p); } catch (_) {} };
   try {
     const { net } = require('electron');
-    const dir = path.join(app.getPath('temp'), 'DucatONE-update');
+    const dir = path.join(app.getPath('temp'), 'OfficinaONE-update');
     let last = 0;
     const file = await require('./lib/updater').download((u, o) => net.fetch(u, o), updInfo, dir, (done, total) => {
       if (Date.now() - last > 150) { last = Date.now(); send({ done, total }); }
@@ -903,13 +911,13 @@ ipcMain.on('report', async () => {
   const body = [
     'Descrivi qui il problema:', '', '', '',
     '--- informazioni tecniche (non modificare) ---',
-    `DucatONE ${VERSION.version} (${VERSION.updated}) · ${process.platform === 'win32' ? 'Windows' : os.type()} ${os.release()} · ${os.arch()}`,
+    `OfficinaONE ${VERSION.version} (${VERSION.updated}) · ${process.platform === 'win32' ? 'Windows' : os.type()} ${os.release()} · ${os.arch()}`,
     `Pagina: ${page}`,
     `Motorizzazione/periodo: ${st.val}/${st.prod} · lingua ${st.lang}`,
     '', 'Ultime righe del registro:', LOG.tail(25),
   ].join('\n');
   const to = settings.reportEmail || REPORT_EMAIL;
-  const url = `mailto:${to}?subject=${encodeURIComponent('DucatONE ' + VERSION.version + ' - segnalazione')}&body=${encodeURIComponent(body).slice(0, 1800)}`;
+  const url = `mailto:${to}?subject=${encodeURIComponent('OfficinaONE ' + VERSION.version + ' - segnalazione')}&body=${encodeURIComponent(body).slice(0, 1800)}`;
   shell.openExternal(url);
 });
 // popup video YouTube
@@ -925,7 +933,7 @@ ipcMain.on('video-open', (e, id, title) => {
     videoWin.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
     videoWin.webContents.on('will-navigate', (ev, url) => { if (!/youtube(-nocookie)?\.com\/embed\//.test(url)) { ev.preventDefault(); if (/^https?:/.test(url)) shell.openExternal(url); } });
   }
-  videoWin.setTitle((title || 'Video') + ' - DucatONE');
+  videoWin.setTitle((title || 'Video') + ' - OfficinaONE');
   videoWin.webContents.once('page-title-updated', (ev) => ev.preventDefault());
   const offline = `<html><body style="margin:0;background:#111;color:#eee;font:15px Arial;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center"><div><p style="font-size:40px;margin:0">▶</p><p>Impossibile caricare il video: controlla la connessione a Internet.</p><p><a style="color:#ff6b5e" href="https://www.youtube.com/watch?v=${id}">Apri su YouTube ↗</a></p></div></body></html>`;
   videoWin.loadURL(`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`, { httpReferrer: 'https://ducatone.app/' }).catch(() => {
@@ -993,8 +1001,8 @@ async function checkPak() {
     try { const r = await sx.verify(); ok = r.bad === 0 && r.entries > 100; LOG.info('verifica dati:', JSON.stringify(r)); } catch (e) { ok = false; }
     if (ok) { settings.pakChecked = tag; saveSettings(); LOG.info('dati verificati'); return; }
     LOG.error('data.pak danneggiato');
-    const r = await dialog.showMessageBox(win, { type: 'warning', title: 'DucatONE', message: 'I dati del manuale risultano danneggiati o incompleti.', detail: 'Alcune pagine o immagini potrebbero non aprirsi. Per ripararli scarica di nuovo il programma completo (DucatONE-Setup) e installalo sopra: note, preferiti e impostazioni vengono conservati.', buttons: ['Scarica il programma completo', 'Più tardi'], defaultId: 0 });
-    if (r.response === 0) shell.openExternal('https://github.com/Projekto1983/DucatONE/releases/latest');
+    const r = await dialog.showMessageBox(win, { type: 'warning', title: 'OfficinaONE', message: 'I dati del manuale risultano danneggiati o incompleti.', detail: 'Alcune pagine o immagini potrebbero non aprirsi. Per ripararli scarica di nuovo il programma completo (OfficinaONE-Setup) e installalo sopra: note, preferiti e impostazioni vengono conservati.', buttons: ['Scarica il programma completo', 'Più tardi'], defaultId: 0 });
+    if (r.response === 0) shell.openExternal('https://github.com/Projekto1983/OfficinaONE/releases/latest');
   } catch (e) { LOG.warn('controllo dati:', e.message); }
 }
 
@@ -1005,16 +1013,16 @@ ipcMain.on('kv-set', (e, k, v) => { settings.user = settings.user || {}; if (v =
 // segnalazione di un errore su una pagina del manuale
 ipcMain.on('report-page', (e, info) => {
   const body = ['Pagina del manuale: ' + (info.title || ''), 'Codice nodo: ' + (info.node || ''), 'Motorizzazione/periodo: ' + st.val + '/' + st.prod, '', "Descrivi l'errore che hai trovato:", '', ''].join('\n');
-  shell.openExternal(`mailto:${settings.reportEmail || REPORT_EMAIL}?subject=${encodeURIComponent('DucatONE - errore nel manuale: ' + (info.title || '').slice(0, 80))}&body=${encodeURIComponent(body)}`);
+  shell.openExternal(`mailto:${settings.reportEmail || REPORT_EMAIL}?subject=${encodeURIComponent('OfficinaONE - errore nel manuale: ' + (info.title || '').slice(0, 80))}&body=${encodeURIComponent(body)}`);
 });
 // backup di note, preferiti, cronologia e dati personali
 ipcMain.handle('backup-export', async (e) => {
   const r = await dialog.showSaveDialog(BrowserWindow.fromWebContents(e.sender) || undefined, {
-    title: 'Salva backup DucatONE', defaultPath: path.join(app.getPath('documents'), 'DucatONE-backup-' + new Date().toISOString().slice(0, 10) + '.json'), filters: [{ name: 'Backup DucatONE', extensions: ['json'] }],
+    title: 'Salva backup OfficinaONE', defaultPath: path.join(app.getPath('documents'), 'OfficinaONE-backup-' + new Date().toISOString().slice(0, 10) + '.json'), filters: [{ name: 'Backup OfficinaONE', extensions: ['json'] }],
   });
   if (r.canceled || !r.filePath) return { canceled: true };
   const keep = ['notes', 'favs', 'history', 'user', 'lang', 'last'];
-  const data = { app: 'DucatONE', version: VERSION.version, date: new Date().toISOString(), settings: Object.fromEntries(keep.filter((k) => settings[k] !== undefined).map((k) => [k, settings[k]])), files: {} };
+  const data = { app: 'OfficinaONE', version: VERSION.version, date: new Date().toISOString(), settings: Object.fromEntries(keep.filter((k) => settings[k] !== undefined).map((k) => [k, settings[k]])), files: {} };
   const photos = path.join(app.getPath('userData'), 'foto');
   const walk = (d) => { try { for (const f of fs.readdirSync(d, { withFileTypes: true })) { const fp = path.join(d, f.name); if (f.isDirectory()) walk(fp); else data.files[path.relative(app.getPath('userData'), fp).replace(/\\/g, '/')] = fs.readFileSync(fp).toString('base64'); } } catch (_) {} };
   walk(photos);
@@ -1022,11 +1030,11 @@ ipcMain.handle('backup-export', async (e) => {
   return { ok: true, file: r.filePath };
 });
 ipcMain.handle('backup-import', async (e) => {
-  const r = await dialog.showOpenDialog(BrowserWindow.fromWebContents(e.sender) || undefined, { title: 'Ripristina backup DucatONE', properties: ['openFile'], filters: [{ name: 'Backup DucatONE', extensions: ['json'] }] });
+  const r = await dialog.showOpenDialog(BrowserWindow.fromWebContents(e.sender) || undefined, { title: 'Ripristina backup OfficinaONE', properties: ['openFile'], filters: [{ name: 'Backup OfficinaONE', extensions: ['json'] }] });
   if (r.canceled || !r.filePaths[0]) return { canceled: true };
   try {
     const data = JSON.parse(fs.readFileSync(r.filePaths[0], 'utf8'));
-    if (data.app !== 'DucatONE' || !data.settings) throw new Error('Il file scelto non è un backup di DucatONE.');
+    if (!/^(OfficinaONE|DucatONE)$/.test(data.app) || !data.settings) throw new Error('Il file scelto non è un backup di OfficinaONE.');
     Object.assign(settings, data.settings);
     for (const [rel, b64] of Object.entries(data.files || {})) {
       if (!/^foto\//.test(rel) || rel.includes('..')) continue;
@@ -1053,6 +1061,29 @@ ipcMain.on('tab-close', (e, i) => closeTab(i === undefined ? tabs.indexOf(active
 ipcMain.on('tab-cycle', (e, d) => { const i = tabs.indexOf(active); selectTab(tabs[(i + d + tabs.length) % tabs.length]); });
 ipcMain.on('reload-all', () => tabs.forEach((t) => t.view.webContents.reload()));
 ipcMain.on('exit', () => app.quit());
+// ------------------------------------------------------------ avviso al primo avvio (ricompare se cambia la versione del testo)
+const DISCLAIMER_V = 1;
+let discWin = null, discOk = false;
+function showDisclaimer() {
+  if (settings.disclaimer === DISCLAIMER_V || process.env.ELEARN_SELFTEST || process.env.ELEARN_COLLECT) return false;
+  const W = 640, H = 560;
+  let pos = {};
+  try { const b = win.getBounds(); pos = { x: Math.round(b.x + (b.width - W) / 2), y: Math.round(b.y + (b.height - H) / 2) }; } catch (_) {}
+  discWin = new BrowserWindow({ parent: win, modal: process.platform !== 'linux', show: false, ...pos, width: W, height: H, resizable: false, minimizable: false, maximizable: false, title: 'OfficinaONE - Avviso', icon: ICON, autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.js') } });
+  discWin.setMenu(null);
+  discWin.loadURL('elearn://app/app/avviso.html');
+  discWin.once('ready-to-show', () => { discWin.show(); discWin.focus(); });
+  discWin.on('closed', () => { discWin = null; if (!discOk) app.quit(); });
+  return true;
+}
+ipcMain.on('disclaimer-ok', () => {
+  discOk = true;
+  settings.disclaimer = DISCLAIMER_V;
+  settings.disclaimerAt = new Date().toISOString();
+  saveSettings();
+  LOG.info('avviso accettato');
+  try { discWin && discWin.close(); } catch (_) {}
+});
 ipcMain.on('info', (e) => { e.returnValue = { version: VERSION.version, updated: VERSION.updated }; });
 ipcMain.on('focusMain', () => win && (win.isMinimized() && win.restore(), win.focus()));
 ipcMain.handle('scanSources', () => scanSources());
@@ -1069,9 +1100,9 @@ ipcMain.handle('exportPdf', async (e, url) => {
   try {
     await w.loadURL(url);
     await new Promise((r) => setTimeout(r, 1200)); // tempo per gli schemi SVG
-    const title = (w.webContents.getTitle() || 'eLearn').replace(/^(eLearn|DucatONE)\s*-\s*/, '');
+    const title = (w.webContents.getTitle() || 'eLearn').replace(/^(eLearn|OfficinaONE)\s*-\s*/, '');
     const landscape = /print\.html|zoom\.html/.test(url);
-    let name = title && !/contents/i.test(title) ? title : 'DucatONE';
+    let name = title && !/contents/i.test(title) ? title : 'OfficinaONE';
     try {
       const db = await curDb();
       const mn = /[?&]node=(\d+)/.exec(url), mx = /[?&]xml=(\d+)/.exec(url);
@@ -1082,7 +1113,7 @@ ipcMain.handle('exportPdf', async (e, url) => {
     const pdf = await w.webContents.printToPDF({
       printBackground: true, pageSize: 'A4', landscape, margins: { marginType: 'default' },
       displayHeaderFooter: true,
-      headerTemplate: `<div style="font:7px Verdana,Arial;width:100%;padding:0 10mm;color:#004594;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">DucatONE — ${he(name)}</div>`,
+      headerTemplate: `<div style="font:7px Verdana,Arial;width:100%;padding:0 10mm;color:#004594;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">OfficinaONE — ${he(name)}</div>`,
       footerTemplate: '<div style="font:7px Verdana,Arial;width:100%;padding:0 10mm;text-align:right;color:#666"><span class="pageNumber"></span> / <span class="totalPages"></span></div>',
     });
     name = name.replace(/[\\/:*?"<>|]+/g, ' ').trim().slice(0, 80);
@@ -1110,7 +1141,7 @@ else {
   app.whenReady().then(() => {
     Menu.setApplicationMenu(null);
     LOG.init(path.join(LOCAL_DIR || app.getPath('userData'), 'logs'));
-    LOG.info('avvio DucatONE', VERSION.version);
+    LOG.info('avvio OfficinaONE', VERSION.version);
     process.on('uncaughtException', (e) => LOG.error('eccezione:', e));
     process.on('unhandledRejection', (e) => LOG.error('promise:', e));
     loadSettings();

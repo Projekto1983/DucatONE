@@ -1,5 +1,61 @@
-{"extends":null,"appId":"it.ducatone.app","productName":"DucatONE","executableName":"ducatone",
- "files":["**/*","!build_icon.ico"],"asar":true,
- "extraResources":[{"from":"../data","to":"data"}],
- "linux":{"target":["AppImage"],"icon":"build_icon.png","category":"Education","synopsis":"Manuale officina Fiat Ducato","artifactName":"DucatONE-${version}-x86_64.${ext}"},
- "directories":{"output":"dist"},"publish":null}
+{
+  "appId": "it.ducatone.app",
+  "productName": "OfficinaONE",
+  "executableName": "OfficinaONE",
+  "copyright": "OfficinaONE - progetto amatoriale senza scopo di lucro",
+  "files": [
+    "**/*",
+    "!dist/**",
+    "!*.md",
+    "!full.json",
+    "!LEGGIMI-portatile.txt"
+  ],
+  "asar": true,
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "build_icon.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "OfficinaONE",
+    "artifactName": "OfficinaONE-Setup-${version}.exe",
+    "installerIcon": "build_icon.ico",
+    "uninstallerIcon": "build_icon.ico",
+    "language": "1040",
+    "differentialPackage": false
+  },
+  "linux": {
+    "target": [
+      "AppImage"
+    ],
+    "executableName": "officinaone",
+    "icon": "build_icon.png",
+    "category": "Education",
+    "synopsis": "Manuali officina",
+    "artifactName": "OfficinaONE-${version}-x86_64.${ext}"
+  },
+  "directories": {
+    "output": "dist/full"
+  },
+  "publish": null,
+  "extraResources": [
+    {
+      "from": "../data",
+      "to": "data",
+      "filter": [
+        "*.pak"
+      ]
+    }
+  ]
+}

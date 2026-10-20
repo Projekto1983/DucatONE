@@ -1,5 +1,5 @@
 'use strict';
-// Registro errori locale (%LOCALAPPDATA%\DucatONE\logs\ducatone.log), con rotazione a 1 MB
+// Registro errori locale (%LOCALAPPDATA%\OfficinaONE\logs\ducatone.log), con rotazione a 1 MB
 const fs = require('fs');
 const path = require('path');
 let file = null;

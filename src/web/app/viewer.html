@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>DucatONE - Immagine</title>
+<html><head><meta charset="utf-8"><title>OfficinaONE - Immagine</title>
 <style>
 html,body{margin:0;height:100%;background:#2b2f36;font:12px Verdana,Tahoma,sans-serif;overflow:hidden}
 .tb{position:fixed;top:0;left:0;right:0;height:40px;background:#004594;border-bottom:3px solid #fb6705;display:flex;align-items:center;gap:6px;padding:0 10px;z-index:2;color:#fff}
@@ -32,7 +32,7 @@ html,body{margin:0;height:100%;background:#2b2f36;font:12px Verdana,Tahoma,sans-
 const q=new URLSearchParams(location.search), src=q.get('src'), title=q.get('t')||'';
 const im=document.getElementById('im'), st=document.getElementById('st'), zl=document.getElementById('zl');
 document.getElementById('tt').textContent=title; document.getElementById('pt').textContent=title;
-if(title) document.title='DucatONE - '+title;
+if(title) document.title='OfficinaONE - '+title;
 im.src=src; document.getElementById('pi').src=src;
 let s=1,x=0,y=0,rot=0;
 function apply(){im.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${rot}deg)`;zl.textContent=Math.round(s*100)+'%';

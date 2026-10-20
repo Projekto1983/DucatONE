@@ -72,14 +72,14 @@ function homePage() {
 													<td><a id="imgPeugeot" title="Peugeot" href="models.html?mark=3"><img border="0" src=".\\images\\marca4.jpg"></a></td>
 													<td><a id="imgCitroen" title="Citroën" href="models.html?mark=2"><img border="0" src=".\\images\\marca5.jpg"></a></td>
 `;
-  return withMeta(T('homepage0')).replace('<HEAD>', '<HEAD><title>DucatONE</title>').replace(/<BODY /i, '<BODY class="home" ') + marks + T('homepage1');
+  return withMeta(T('homepage0')).replace('<HEAD>', '<HEAD><title>OfficinaONE</title>').replace(/<BODY /i, '<BODY class="home" ') + marks + T('homepage1');
 }
 
 // ---------------------------------------------------------------- MODELLI
 function modelsPage(db, st, langs) {
   const css = markCss(db, st.mark);
   let h = withMeta(T('models0'));
-  h += `\t\t<title>DucatONE</title>\n\t\t<link rel="stylesheet" type="text/css" href="${css.LINK}">\n` + T('script');
+  h += `\t\t<title>OfficinaONE</title>\n\t\t<link rel="stylesheet" type="text/css" href="${css.LINK}">\n` + T('script');
   let m1 = T('models1');
   // titolo pagina nella barra scura
   m1 = m1.replace(
@@ -105,9 +105,8 @@ function modelsPage(db, st, langs) {
   h += `
 		<TD align="middle" colspan="${Math.max(1, models.length)}" style="padding-bottom:18px">
 			<div class="brands">
-				<a href="selmodel?model=${(models[0] || {}).ID}" title="Apri il manuale"><img src="./app/brand-fiat.png" alt="Fiat"><span>Fiat <b>Ducato</b></span></a>
-				<a href="selmodel?model=${(models[0] || {}).ID}" title="Apri il manuale"><img src="./app/brand-peugeot.png" alt="Peugeot"><span>Peugeot <b>Boxer</b></span></a>
-				<a href="selmodel?model=${(models[0] || {}).ID}" title="Apri il manuale"><img src="./app/brand-citroen.png" alt="Citroën"><span>Citroën <b>Jumper</b></span></a>
+				<span>Manuale officina per <b>Fiat Ducato</b> · <b>Peugeot Boxer</b> · <b>Citroën Jumper</b></span>
+				<small>Progetto amatoriale senza scopo di lucro, non affiliato a Fiat, Stellantis, Peugeot o Citroën</small>
 			</div>
 		</TD></tr><tr>`;
   models.forEach((m, i) => {
@@ -146,8 +145,8 @@ function topBar(st) {
          <a id="BannerSearch" class="topbar" href="search.html" target="framemain" title="Cerca nel manuale">Cerca</a><span class="topbar">|</span>
          <A class="topbar" href="#" title="Stampa la pagina visualizzata" onclick="printFrame(self.framemain);return false;">Stampa</A><span class="topbar">|</span>
          <A class="topbar" href="#" title="Salva la pagina visualizzata in PDF" onclick="exportPdf(self.framemain);return false;">Salva in Pdf</A><span class="topbar">|</span>
-         <A class="topbar" href="guida.html" target="framemain" title="Guida all'uso di DucatONE">Aiuto</A><span class="topbar">|</span>
-         <A class="topbar" href="#" title="Chiudi DucatONE" onclick="exitApp();return false;">Esci dal software</A>
+         <A class="topbar" href="guida.html" target="framemain" title="Guida all'uso di OfficinaONE">Aiuto</A><span class="topbar">|</span>
+         <A class="topbar" href="#" title="Chiudi OfficinaONE" onclick="exitApp();return false;">Esci dal software</A>
       </td>`;
 }
 
@@ -168,7 +167,7 @@ function mainPage(db, st, nodeId, from) {
   const curSec = db.sectionOf.get(nodeId);
 
   let h = withMeta(T('main0'));
-  h += `\t\t<title>DucatONE - ${esc((db.elements.get(nodeId) ? label(db.elements.get(nodeId)) : ''))}</title>\n\t\t<style>html,body{overflow:hidden;height:100%}</style>\n${T('script')}\t\t<link rel="stylesheet" type="text/css" href="${css.LINK}">\n`;
+  h += `\t\t<title>OfficinaONE - ${esc((db.elements.get(nodeId) ? label(db.elements.get(nodeId)) : ''))}</title>\n\t\t<style>html,body{overflow:hidden;height:100%}</style>\n${T('script')}\t\t<link rel="stylesheet" type="text/css" href="${css.LINK}">\n`;
   h += T('main1');
   h += topBar(st);
   h += T('main2');
@@ -577,7 +576,7 @@ function searchPage(db, st, q) {
   const allW = [...new Set(alts.flat())];
   const hasAll = (t) => alts.every((a) => a.some((w) => t.includes(w)));
 
-  let h = contentHead(db, st, 'DucatONE - Cerca') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Cerca') + T('content1');
   h += `<div class="srch">
 <form action="search.html" method="get">
   <input type="hidden" name="go" value="1">
@@ -687,7 +686,7 @@ function treeHtml(db, st, parentId, curId) {
 
 // ---------------------------------------------------------------- CRONOLOGIA (iframe)
 function historyPage(db, st, hist) {
-  let h = contentHead(db, st, 'DucatONE - Cronologia') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Cronologia') + T('content1');
   h += '<h1 class="bigtext1">🕘 Cronologia — ultime pagine consultate</h1>';
   const items = hist.map((id) => db.elements.get(id)).filter(Boolean);
   if (!items.length) h += '<p class="contents_testonormale">Nessuna pagina consultata.</p>';
@@ -711,7 +710,7 @@ function ricambiPage(db, st, data) {
     return isNaN(n) ? esc(p) : n.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
   };
   const when = data.updated ? new Date(data.updated).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' }) : '';
-  let h = contentHead(db, st, 'DucatONE - Ricambi online') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Ricambi online') + T('content1');
   h += `<div class="ricambi">
 <div class="rhead"><h1>🛒 Ricambi online${st.mezzo === '86' ? ' <small>· Ducato 1986</small>' : ''}</h1>
 <input type="search" id="rf" placeholder="Filtra per nome, codice o descrizione…" oninput="rfilter(this.value)">
@@ -758,7 +757,7 @@ document.querySelectorAll('h2.rcat').forEach(h=>{const g=h.nextElementSibling;h.
 // ---------------------------------------------------------------- VIDEO GUIDE
 function videoPage(db, st, data) {
   const when = data.updated ? new Date(data.updated).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' }) : '';
-  let h = contentHead(db, st, 'DucatONE - Video guide') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Video guide') + T('content1');
   h += `<div class="ricambi videog">
 <div class="rhead"><h1>▶ Video guide${st.mezzo === '86' ? ' <small>· Ducato 1986</small>' : ''}</h1>
 <input type="search" id="rf" placeholder="Filtra per titolo o descrizione…" oninput="rfilter(this.value)">
@@ -802,7 +801,7 @@ function guidePage(db, st, version) {
   const fs2 = require('fs');
   const gf = st.lang > 1 && fs2.existsSync(path.join(WEB, 'app', 'guida_en.html')) ? 'guida_en.html' : 'guida.html';
   const body = fs2.readFileSync(path.join(WEB, 'app', gf), 'utf8').replace(/\{\{VERSION\}\}/g, esc(version.version)).replace(/\{\{UPDATED\}\}/g, esc(version.updated));
-  return contentHead(db, st, 'DucatONE - Aiuto') + T('content1') + body + '\n</body></HTML>';
+  return contentHead(db, st, 'OfficinaONE - Aiuto') + T('content1') + body + '\n</body></HTML>';
 }
 
 // ---------------------------------------------------------------- HOME: pagine recenti e preferiti
@@ -902,7 +901,7 @@ ${note ? `<div class="wblock"><b>Note personali</b><div>${esc(note.text).replace
 
 // ---------------------------------------------------------------- SCARICAMENTO NUOVO DUCATO X250
 function x250GetPage(state) {
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>DucatONE - Nuovo Ducato X250</title><link rel="stylesheet" href="./app/fix.css"><script src="./app/i18n.js"></script><style>
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>OfficinaONE - Nuovo Ducato X250</title><link rel="stylesheet" href="./app/fix.css"><script src="./app/i18n.js"></script><style>
 body{margin:0;font:10pt Verdana,sans-serif;background:#eef3fa;color:#123}
 .box{max-width:560px;margin:60px auto;background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,40,100,.15);padding:24px 28px;border-top:5px solid #fb6705}
 h1{font-size:15pt;color:#004594;margin:0 0 8px} .bar{height:14px;background:#dde6f2;border-radius:7px;overflow:hidden;margin:16px 0 6px} .bar i{display:block;height:100%;width:0;background:#fb6705;transition:width .3s}
@@ -913,7 +912,7 @@ button,a.b{background:#004594;color:#fff;border:0;border-radius:4px;padding:8px 
 <div id="st">${state && state.error ? `<div class="er">Scaricamento non riuscito: ${esc(state.error)}</div>` : ''}</div>
 <div class="bar"><i id="pb"></i></div><div class="sm" id="pt">&nbsp;</div>
 <button id="go">⬇ Scarica il manuale Ducato X250</button> <a class="b" href="models.html" style="background:#667">Torna alla home</a>
-<p class="sm" style="margin-top:16px">In alternativa copia il file <b>x250.pak</b> nella cartella dati del programma e riapri DucatONE.</p></div>
+<p class="sm" style="margin-top:16px">In alternativa copia il file <b>x250.pak</b> nella cartella dati del programma e riapri OfficinaONE.</p></div>
 <script>
 var go=document.getElementById('go'),pb=document.getElementById('pb'),pt=document.getElementById('pt');
 function poll(){fetch('x250get?status=1').then(function(r){return r.json()}).then(function(s){
@@ -976,7 +975,7 @@ function uemLink(db, st, e) {
 }
 function quickPage(db, st) {
   const items = (is250db(db) ? QUICK250 : QUICK).map(([t, id, ic]) => [t, id, ic, db.elements.get(id)]).filter((x) => x[3] && db.elementValid(x[3], st.val, st.prod));
-  let h = contentHead(db, st, 'DucatONE - Schede rapide') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Schede rapide') + T('content1');
   h += `<div class="quick"><div class="qlist"><h1>⚡ Schede rapide</h1>${items
     .map(([t, id, ic, e], i) => `<a href="content.html?node=${id}" target="qframe" class="${i ? '' : 'sel'}" title="${esc(e.NAME)}"><span>${ic}</span>${esc(t)}</a>`)
     .join('')}${(() => {
@@ -993,7 +992,7 @@ function quickPage(db, st) {
 function toolsPage(db, st, tab) {
   const tabs = [['conv', '🔢 Convertitori'], ['gloss', '📖 Glossario'], ['wire', '🎨 Colori cavi'], ['backup', '💾 Backup']];
   const cur = tabs.some((t) => t[0] === tab) ? tab : 'conv';
-  let h = contentHead(db, st, 'DucatONE - Strumenti') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Strumenti') + T('content1');
   h += `<div class="toolsp"><h1>🧰 Strumenti</h1><div class="ttabs">${tabs
     .map(([k, t]) => `<a href="tools.html?t=${k}" class="${k === cur ? 'sel' : ''}">${t}</a>`)
     .join('')}</div><div class="tbody">`;
@@ -1036,7 +1035,7 @@ function warmSearch(db) { try { vocab(db); toolTable(db); } catch (_) {} }
 // ---------------------------------------------------------------- CONFRONTO AFFIANCATO
 function splitPage(l, r) {
   const ok = (u) => (/^elearn:\/\/app\//.test(u) ? u : 'elearn://app/models.html');
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>DucatONE - Affiancate</title><style>
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>OfficinaONE - Affiancate</title><style>
 html,body{margin:0;height:100%;overflow:hidden;font:12px Verdana,sans-serif;background:#004594}
 .sp{display:flex;height:calc(100% - 26px)} iframe{border:0;height:100%;background:#fff} #L{width:50%} #R{flex:1}
 .dv{width:7px;cursor:col-resize;background:#fb6705} .top{height:26px;display:flex;align-items:center;gap:12px;padding:0 10px;color:#fff}
@@ -1117,7 +1116,7 @@ function garagePage(db, st) {
   for (const d of dbs) for (const v of d.validities) for (const p of d.productionsFor(v.ID)) plans[v.ID + ':' + p.ID] = maintPlan(d, v.ID, p.ID);
   const vals = [].concat(...dbs.map((d) => d.validities.map((v) => ({ id: v.ID, name: (is250db(d) ? 'Ducato X250 · ' : 'Ducato 244 · ') + v.NAME, prods: d.productionsFor(v.ID).map((p) => ({ id: p.ID, name: p.NAME })) }))))
     .concat([['b', '2000 benzina'], ['d19', '1900 Diesel / turbo D'], ['d25', '2500 Diesel / turbo D'], ['crd', '2500 Diesel C.R.D.']].map(([k, n]) => ({ id: 'd86' + k, name: 'Ducato 1986 · ' + n, prods: [{ id: 0, name: 'gamma 1986 (1ª serie)' }] })));
-  let h = contentHead(db, st, 'DucatONE - Libretto') + T('content1');
+  let h = contentHead(db, st, 'OfficinaONE - Libretto') + T('content1');
   h += `<div class="garage"><div class="ghead"><h1>📒 Libretto e manutenzione</h1><select id="gv"></select><a href="#" id="gnew" class="gbtn">＋ Nuovo veicolo</a><a href="#" id="gprint" class="gbtn lite">🖨 Stampa libretto</a></div>
 <div id="gbody"></div>
 <div class="uemcheck"><h2>✅ Controlli periodici consigliati dal libretto di uso e manutenzione</h2>
@@ -1201,8 +1200,8 @@ function chapterPage(db, st, nodeId) {
     }
   };
   walk(nodeId, 0);
-  let h = contentHead(db, st, 'DucatONE - ' + label(g)) + '</HEAD><body class="chapter">\n';
-  h += `<div class="ctitle"><img src="./app/logo@2x.jpg"><h1>${esc(label(g))}</h1><p>Fiat Ducato · ${esc(val.NAME)} · ${esc(prod.NAME)}</p><p class="cdate">Creato con DucatONE il ${new Date().toLocaleDateString('it-IT')}</p></div>`;
+  let h = contentHead(db, st, 'OfficinaONE - ' + label(g)) + '</HEAD><body class="chapter">\n';
+  h += `<div class="ctitle"><img src="./app/logo@2x.jpg"><h1>${esc(label(g))}</h1><p>Fiat Ducato · ${esc(val.NAME)} · ${esc(prod.NAME)}</p><p class="cdate">Creato con OfficinaONE il ${new Date().toLocaleDateString('it-IT')}</p></div>`;
   h += `<div class="cindex"><h2>Indice</h2>${leaves.map((l, i) => `<div class="ci d${Math.min(l.depth, 3)}${l.head ? ' h' : ''}">${l.head ? '' : `<a href="#p${i}">`}${esc(label(l.e))}${l.head ? '' : '</a>'}</div>`).join('')}</div>`;
   leaves.forEach((l, i) => {
     if (l.head) return;
