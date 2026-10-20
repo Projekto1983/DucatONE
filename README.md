@@ -1,6 +1,6 @@
 # OfficinaONE
 
-Programma per consultare su **Windows e Linux** i vecchi manuali d'officina su CD (eLearn 1.3.2) per Fiat Ducato 244, X250 e 1986, Peugeot Boxer e Citroën Jumper. Prima si chiamava **DucatONE**.
+Programma per consultare su **Windows e Linux** i vecchi manuali d'officina su CD (eLearn 1.3.2) per Fiat Ducato 244, X250 e 1986, Peugeot Boxer e Citroën Jumper.
 
 > **Progetto amatoriale, gratuito e senza scopo di lucro.** Non è affiliato, approvato o sponsorizzato da Fiat, Stellantis, Peugeot, Citroën, Delphi o altri titolari. I contenuti dei manuali appartengono ai rispettivi titolari; il programma serve solo a renderli utilizzabili sui sistemi attuali e **non può essere venduto**. Chi lo scarica e lo usa dichiara di essere titolare dei diritti sui manuali o di possederne già una copia originale privata, e di usarlo solo per comodità personale.
 >
