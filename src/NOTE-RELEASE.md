@@ -1,14 +1,7 @@
-## OfficinaONE 3.2.0
+## OfficinaONE 3.2.1
 
-**DucatONE diventa OfficinaONE**
-- Nuovo nome, logo e icona; tolti i loghi dei costruttori.
-- Avviso iniziale: progetto amatoriale, gratuito e senza scopo di lucro, non affiliato a Fiat/Stellantis.
-- Note, libretti, foto e impostazioni restano quelli di prima.
+- Gli aggiornamenti diventano obbligatori: quando esce una nuova versione, il programma si usa solo dopo averla installata.
 
-**Linux**
-- Versione AppImage per Linux a 64 bit (Ubuntu, Mint, Debian, Fedora…).
-
-**Aggiornamenti**
-- Supporto agli aggiornamenti obbligatori per le versioni non più supportate.
+obbligatorio: sì
 
 *Progetto amatoriale senza scopo di lucro. I contenuti dei manuali appartengono ai rispettivi titolari. Vietata la vendita.*

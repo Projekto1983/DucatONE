@@ -23,7 +23,7 @@ document.getElementById('notes').textContent=i.notes||'Miglioramenti e correzion
 const go=document.getElementById('go'),later=document.getElementById('later'),bar=document.getElementById('bar'),msg=document.getElementById('msg');
 later.onclick=()=>window.close();
 if(i.forced){later.textContent='Esci';document.querySelector('.h b').textContent='Aggiornamento obbligatorio';
- document.getElementById('notes').insertAdjacentHTML('beforebegin','<div style="color:#c00;font-weight:bold;margin:6px 0">Questa versione non è più supportata: per continuare a usare OfficinaONE è necessario aggiornare.</div>');}
+ document.getElementById('notes').insertAdjacentHTML('beforebegin','<div style="color:#c00;font-weight:bold;margin:6px 0">È uscita una nuova versione: per continuare a usare OfficinaONE devi installarla. Con «Esci» il programma si chiude.</div>');}
 go.onclick=()=>{go.disabled=later.disabled=true;bar.style.display='block';msg.className='msg';msg.textContent='Download in corso…';elearnApp.updateStart();};
 elearnApp.onUpdate(p=>{
   if(p.error){msg.className='msg err';msg.textContent=p.error;go.disabled=later.disabled=false;go.textContent='Riprova';return;}

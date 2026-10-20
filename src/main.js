@@ -813,7 +813,7 @@ function createWindow() {
 // ------------------------------------------------------------ aggiornamento automatico
 let updInfo = null, updWin = null, updBusy = false, sessionSkip = null;
 async function checkUpdates(manual) {
-  if (process.env.ELEARN_UPD_FAKE) { updInfo = { version: '9.9.9', notes: 'Prova', size: 1 }; showUpdateWindow(); return { found: '9.9.9' }; }
+  if (process.env.ELEARN_UPD_FAKE) { updInfo = { version: '9.9.9', notes: 'Prova', size: 1, forced: true }; showUpdateWindow(); return { found: '9.9.9' }; }
   if (updBusy || !app.isPackaged && !process.env.ELEARN_UPD_TEST) return manual ? { none: true, dev: true } : null;
   try {
     const { net } = require('electron');
@@ -844,6 +844,8 @@ function showUpdateWindow() {
   const forced = !!(updInfo && updInfo.forced);
   updWin = new BrowserWindow({ parent: win && !win.isDestroyed() ? win : undefined, modal: forced && process.platform !== 'linux', closable: true, show: false, ...pos, width: W, height: H, resizable: false, minimizable: false, maximizable: false, title: 'Aggiornamento OfficinaONE', icon: ICON, autoHideMenuBar: true, webPreferences: { preload: path.join(__dirname, 'preload.js') } });
   updWin.setMenu(null);
+  // obbligatorio: la finestra principale resta bloccata finché non si aggiorna (o si chiude il programma)
+  if (forced) { try { win.setEnabled(false); } catch (_) {} }
   updWin.loadURL('elearn://app/app/update.html');
   // sempre davanti: mostrata in primo piano appena pronta, anche se la finestra principale sta ancora caricando
   const bringFront = () => {

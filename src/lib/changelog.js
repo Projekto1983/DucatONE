@@ -1,6 +1,7 @@
 'use strict';
 // Novità mostrate nella home (sezione News), dalla più recente
 module.exports = [
+  { v: '3.2.1', d: '20/10/2026', t: 'Gli aggiornamenti sono obbligatori: quando esce una nuova versione il programma si usa solo dopo averla installata.' },
   { v: '3.2.0', d: '20/10/2026', t: 'DucatONE diventa OfficinaONE: nuovo nome, logo e icona, senza loghi dei costruttori. Avviso iniziale sullo scopo del progetto (amatoriale, gratuito, senza scopo di lucro). Versione per Linux (AppImage). Supporto agli aggiornamenti obbligatori. Note, libretti, foto e impostazioni restano quelli di prima.' },
   { v: '3.1.0', d: '19/10/2026', t: 'Kit aria condizionata Delphi Diavia: 15 manuali di montaggio e manutenzione per Ducato 244 e X250 (compressore, impianti completi con comando Denso o Diavia), con elenco per motore, codice kit, carica di R134a, prescrizioni per l\'installatore, ricerca e PDF scaricabili.' },
   { v: '3.0.0', d: '19/10/2026', t: 'Libretti di uso e manutenzione Fiat del Ducato 244 e del Nuovo Ducato X250 (edizioni 2009 e 2012): consultabili nel programma con argomenti principali e ricerca, scaricabili in PDF. La ricerca del manuale trova anche le pagine del libretto; nuove schede rapide dal libretto (spie, lampade, fusibili, pressioni, emergenza, traino, controlli); rimandi al libretto dalle pagine d\'officina; controlli periodici consigliati nel Libretto veicoli.' },

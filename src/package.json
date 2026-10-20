@@ -1,7 +1,7 @@
 {
   "name": "officinaone",
   "productName": "OfficinaONE",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "OfficinaONE - Manuali officina (progetto amatoriale senza scopo di lucro)",
   "main": "main.js",
   "author": {

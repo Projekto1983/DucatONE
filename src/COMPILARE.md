@@ -12,5 +12,4 @@ In locale:
     npx electron-builder --win            (o --linux)      -> solo programma
     npx electron-builder --win --config full.json          -> con i dati (cartella ../data con data.pak, ducato86.pak, x250.pak)
 
-Note della release: una riga `obbligatorio: sì` rende l'aggiornamento non rimandabile;
-`minima: x.y.z` lo rende obbligatorio solo per le versioni precedenti a x.y.z.
+Dalla 3.2.1 ogni aggiornamento è obbligatorio. Lasciare comunque la riga `obbligatorio: sì` nelle note: serve a chi ha ancora la 3.2.0.

@@ -45,7 +45,8 @@ async function checkGithub(netFetch, current, repo) {
   // riga «minima: x.y.z»: obbligatorio solo per le versioni più vecchie di x.y.z
   const body = rel.body || '';
   const mMin = /^\s*minima\s*[:=]\s*v?([\d.]+)\s*$/im.exec(body);
-  const forced = /^\s*obbligatorio\s*[:=]\s*(s[iì]|yes|true)\s*$/im.test(body) || (mMin ? cmp(current, mMin[1]) < 0 : false);
+  // dalla 3.2.1 ogni aggiornamento è obbligatorio (le righe restano per compatibilità con la 3.2.0)
+  const forced = true || /^\s*obbligatorio\s*[:=]\s*(s[iì]|yes|true)\s*$/im.test(body) || (mMin ? cmp(current, mMin[1]) < 0 : false);
   const notes = body.replace(/sha256(-linux)?[:\s]+[a-f0-9]{64}/ig, '').replace(/^\s*(obbligatorio|minima)\s*[:=].*$/img, '').trim();
   return { version, link: asset.browser_download_url, notes, sha256: m ? m[1].toLowerCase() : '', forced };
 }
